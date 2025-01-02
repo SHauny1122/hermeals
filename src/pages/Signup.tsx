@@ -27,7 +27,7 @@ const Signup = () => {
       setError('');
       setLoading(true);
       await signup(email, password);
-      navigate('/meal-plans');
+      navigate('/plans');
     } catch (err) {
       setLoading(false);
       if (err instanceof FirebaseError) {

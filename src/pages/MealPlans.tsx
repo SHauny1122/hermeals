@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { mealPlanService } from '../services/mealPlanService';
 import { regularMealPlan } from '../data/regularMealPlan';
 import { twentyTwoDayPlan } from '../data/twentyTwoDayPlan';
 import { RecipesList } from '../components/RecipesList';
@@ -68,6 +71,8 @@ const RecipeDisplay = ({ recipe, description }: RecipeDisplayProps) => {
 const MealPlans = () => {
   const [selectedPlan, setSelectedPlan] = useState<'22-day' | 'regular' | null>(null);
   const [selectedWeek, setSelectedWeek] = useState<number | null>(1); // Default to week 1
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   // If no plan is selected, show the plan selection screen
   if (!selectedPlan) {
@@ -100,8 +105,26 @@ const MealPlans = () => {
 
       <div className="bg-white shadow-sm rounded-lg">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h1 className="text-2xl font-bold text-gray-900">{currentPlan.name}</h1>
-          <p className="mt-1 text-gray-600">{currentPlan.description}</p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">{currentPlan.name}</h1>
+              <p className="mt-1 text-gray-600">{currentPlan.description}</p>
+            </div>
+            <button
+              onClick={async () => {
+                if (!user) return;
+                try {
+                  await mealPlanService.assignMealPlan(user.uid, currentPlan.id || (selectedPlan === '22-day' ? '22-day-plan' : '12-week-plan'));
+                  navigate('/dashboard');
+                } catch (error) {
+                  console.error('Error assigning meal plan:', error);
+                }
+              }}
+              className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
+            >
+              Start Plan
+            </button>
+          </div>
         </div>
 
         {/* Week selector buttons */}

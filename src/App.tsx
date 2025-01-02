@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import ProtectedRoute from './components/ProtectedRoute'
+import PlansAndPricing from './pages/PlansAndPricing'
 import { AuthProvider } from './context/AuthContext'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/plans" element={<PlansAndPricing />} />
               <Route 
                 path="/meal-plans" 
                 element={

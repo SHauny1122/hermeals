@@ -7,20 +7,21 @@ import {
 } from 'firebase/firestore';
 import { MealPlan, UserMealPlan } from '../types/mealPlans';
 import { db } from '../config/firebase';
+import { regularMealPlan } from '../data/regularMealPlan';
+import { twentyTwoDayPlan } from '../data/twentyTwoDayPlan';
 
 export const mealPlanService = {
   // Get all available meal plans
   getAllMealPlans: async (): Promise<MealPlan[]> => {
-    const plansRef = collection(db, 'mealPlans');
-    const snapshot = await getDocs(plansRef);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as MealPlan));
+    return [regularMealPlan, twentyTwoDayPlan];
   },
 
   // Get a specific meal plan by ID
   getMealPlan: async (planId: string): Promise<MealPlan | null> => {
-    const docRef = doc(db, 'mealPlans', planId);
-    const docSnap = await getDoc(docRef);
-    return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } as MealPlan : null;
+    // Use local meal plans instead of Firestore
+    if (planId === '12-week-plan') return regularMealPlan;
+    if (planId === '22-day-plan') return twentyTwoDayPlan;
+    return null;
   },
 
   // Get user's current meal plan
@@ -46,7 +47,7 @@ export const mealPlanService = {
       userId,
       planId,
       startDate: new Date(),
-      currentDay: 1,
+      currentDay: 0, // Changed to 0-based indexing to match the dashboard
       completed: false
     });
   },

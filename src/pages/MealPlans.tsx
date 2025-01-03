@@ -1,10 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { mealPlanService } from '../services/mealPlanService';
-import { regularMealPlan } from '../data/regularMealPlan';
-import { twentyTwoDayPlan } from '../data/twentyTwoDayPlan';
-import { RecipesList } from '../components/RecipesList';
+import { UserMealPlan } from '../types/mealPlans';
 
 interface RecipeDisplayProps {
   recipe: string;
@@ -69,132 +67,98 @@ const RecipeDisplay = ({ recipe, description }: RecipeDisplayProps) => {
 };
 
 const MealPlans = () => {
-  const [selectedPlan, setSelectedPlan] = useState<'22-day' | 'regular' | null>(null);
-  const [selectedWeek, setSelectedWeek] = useState<number | null>(1); // Default to week 1
-  const navigate = useNavigate();
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const [userPlan, setUserPlan] = useState<UserMealPlan | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // If no plan is selected, show the plan selection screen
-  if (!selectedPlan) {
-    return <RecipesList onSelectPlan={setSelectedPlan} />;
+  useEffect(() => {
+    const fetchUserPlan = async () => {
+      if (!user) return;
+      
+      try {
+        const plan = await mealPlanService.getUserMealPlan(user.uid);
+        setUserPlan(plan);
+      } catch (error) {
+        console.error('Error fetching user plan:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserPlan();
+  }, [user]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+      </div>
+    );
   }
 
-  const currentPlan = selectedPlan === '22-day' ? twentyTwoDayPlan : regularMealPlan;
-  const totalWeeks = Math.ceil(currentPlan.meals.length / 7);
-  const weeks = Array.from({ length: totalWeeks }, (_, i) => i + 1);
+  // If user doesn't have a plan, redirect to plans and pricing
+  if (!userPlan) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">No Active Meal Plan</h2>
+          <p className="text-gray-600 mb-8">You haven't purchased a meal plan yet.</p>
+          <button
+            onClick={() => navigate('/plans')}
+            className="bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors"
+          >
+            View Plans & Pricing
+          </button>
+        </div>
+      </div>
+    );
+  }
 
-  // Get the meals for the selected week
-  const weekStart = ((selectedWeek || 1) - 1) * 7;
-  const weekEnd = Math.min(weekStart + 7, currentPlan.meals.length);
-  const weekMeals = currentPlan.meals.slice(weekStart, weekEnd);
-
+  // If user has a plan, show their plan
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
-      <button
-        onClick={() => {
-          setSelectedPlan(null);
-          setSelectedWeek(1);
-        }}
-        className="mb-6 text-emerald-600 hover:text-emerald-700 font-medium flex items-center"
-      >
-        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-        Back to Meal Plans
-      </button>
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-8">{userPlan.mealPlan?.name}</h2>
+      
+      <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold text-gray-900">Your Progress</h3>
+          <p className="text-gray-600">Day {userPlan.currentDay + 1} of {userPlan.mealPlan?.meals.length}</p>
+        </div>
 
-      <div className="bg-white shadow-sm rounded-lg">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">{currentPlan.name}</h1>
-              <p className="mt-1 text-gray-600">{currentPlan.description}</p>
-            </div>
-            <button
-              onClick={async () => {
-                if (!user) return;
-                try {
-                  await mealPlanService.assignMealPlan(user.uid, currentPlan.id || (selectedPlan === '22-day' ? '22-day-plan' : '12-week-plan'));
-                  navigate('/dashboard');
-                } catch (error) {
-                  console.error('Error assigning meal plan:', error);
-                }
-              }}
-              className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
+        <div className="space-y-8">
+          {userPlan.mealPlan?.meals.map((day, index) => (
+            <div 
+              key={index}
+              className={`p-6 rounded-lg ${
+                index === userPlan.currentDay 
+                  ? 'bg-emerald-50 border border-emerald-200'
+                  : 'bg-gray-50'
+              }`}
             >
-              Start Plan
-            </button>
-          </div>
-        </div>
-
-        {/* Week selector buttons */}
-        <div className="p-6 border-b border-gray-200">
-          <div className="flex flex-wrap gap-2">
-            {weeks.map((weekNum) => (
-              <button
-                key={weekNum}
-                onClick={() => setSelectedWeek(weekNum)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
-                  ${selectedWeek === weekNum
-                    ? 'bg-emerald-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-              >
-                Week {weekNum}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Selected week's meals */}
-        <div className="p-6">
-          <div className="space-y-8">
-            {weekMeals.map((day, dayIndex) => (
-              <div key={dayIndex} className="bg-gray-50 rounded-lg p-6 space-y-6">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Day {weekStart + dayIndex + 1}
-                </h3>
-                
-                <div className="space-y-8">
-                  {/* Breakfast */}
-                  <div>
-                    <h4 className="text-emerald-700 font-medium mb-3">Breakfast</h4>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h5 className="font-medium mb-2">{day.breakfast.name}</h5>
-                      <RecipeDisplay 
-                        recipe={day.breakfast.recipe} 
-                        description={day.breakfast.description}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Lunch */}
-                  <div>
-                    <h4 className="text-emerald-700 font-medium mb-3">Lunch</h4>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h5 className="font-medium mb-2">{day.lunch.name}</h5>
-                      <RecipeDisplay 
-                        recipe={day.lunch.recipe} 
-                        description={day.lunch.description}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Dinner */}
-                  <div>
-                    <h4 className="text-emerald-700 font-medium mb-3">Dinner</h4>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h5 className="font-medium mb-2">{day.dinner.name}</h5>
-                      <RecipeDisplay 
-                        recipe={day.dinner.recipe} 
-                        description={day.dinner.description}
-                      />
-                    </div>
-                  </div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                Day {index + 1}
+                {index === userPlan.currentDay && (
+                  <span className="ml-2 text-emerald-600">(Current Day)</span>
+                )}
+              </h4>
+              
+              <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                  <h5 className="font-medium text-gray-900 mb-2">Breakfast</h5>
+                  <RecipeDisplay recipe={day.breakfast.recipe} description={day.breakfast.description} />
+                </div>
+                <div>
+                  <h5 className="font-medium text-gray-900 mb-2">Lunch</h5>
+                  <RecipeDisplay recipe={day.lunch.recipe} description={day.lunch.description} />
+                </div>
+                <div>
+                  <h5 className="font-medium text-gray-900 mb-2">Dinner</h5>
+                  <RecipeDisplay recipe={day.dinner.recipe} description={day.dinner.description} />
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

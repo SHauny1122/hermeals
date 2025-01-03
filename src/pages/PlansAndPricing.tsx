@@ -1,16 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-declare global {
-  interface ImportMeta {
-    env: {
-      VITE_PAYPAL_CLIENT_ID: string;
-    };
-  }
-}
-
-const PlansAndPricing = () => {
+export default function PlansAndPricing() {
   const navigate = useNavigate();
 
   const handlePurchaseSuccess = async (planId: string) => {
@@ -20,8 +11,8 @@ const PlansAndPricing = () => {
   };
 
   return (
-    <PayPalScriptProvider options={{ 
-      clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+    <PayPalScriptProvider options={{
+      clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID || "",
       currency: "USD"
     }}>
       <div className="max-w-7xl mx-auto px-4 py-12">
@@ -157,5 +148,3 @@ const PlansAndPricing = () => {
     </PayPalScriptProvider>
   );
 };
-
-export default PlansAndPricing;

@@ -2,7 +2,6 @@
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import Footer from '../components/Footer';
 
 const Home = () => {
   const ref = useRef(null);
@@ -344,8 +343,6 @@ const Home = () => {
           </div>
         </div>
       </motion.div>
-
-      <Footer />
     </div>
   );
 };

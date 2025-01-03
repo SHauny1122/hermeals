@@ -7,20 +7,25 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import ProtectedRoute from './components/ProtectedRoute'
 import PlansAndPricing from './pages/PlansAndPricing'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsOfService from './pages/TermsOfService'
 import { AuthProvider } from './context/AuthContext'
+import Footer from './components/Footer'
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="app">
+        <div className="app flex flex-col min-h-screen">
           <Navbar />
-          <main className="min-h-screen bg-gray-50">
+          <main className="flex-grow bg-gray-50">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/plans" element={<PlansAndPricing />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route 
                 path="/meal-plans" 
                 element={
@@ -43,6 +48,7 @@ function App() {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
+          <Footer />
         </div>
       </Router>
     </AuthProvider>

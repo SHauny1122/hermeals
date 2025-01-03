@@ -7,7 +7,7 @@ const TermsOfService = () => {
         <section>
           <h2 className="text-2xl font-semibold mb-4">Agreement to Terms</h2>
           <p className="text-gray-600">
-            By accessing and using HerMeals' services, you agree to be bound by these Terms of Service 
+            By accessing and using HerMeal's services, you agree to be bound by these Terms of Service 
             and our Privacy Policy.
           </p>
         </section>
@@ -15,7 +15,7 @@ const TermsOfService = () => {
         <section>
           <h2 className="text-2xl font-semibold mb-4">Service Description</h2>
           <p className="text-gray-600">
-            HerMeals provides personalized meal planning services, including but not limited to:
+            HerMeal provides personalized meal planning services, including but not limited to:
           </p>
           <ul className="list-disc pl-5 space-y-2 mt-2 text-gray-600">
             <li>Customized meal plans</li>

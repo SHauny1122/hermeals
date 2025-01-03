@@ -42,7 +42,7 @@ const Home = () => {
               style={{ y: textY }}
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-                Welcome to HerMeals
+                Welcome to HerMeal
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl">
                 Your journey to healthier eating starts here. Discover personalized meal plans designed specifically for women.
@@ -171,7 +171,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Benefits of HerMeals</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Benefits of HerMeal</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Our meal plans are specifically designed to work with your body's natural rhythms and hormonal cycles
             </p>

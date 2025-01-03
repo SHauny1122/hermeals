@@ -5,7 +5,7 @@ const Footer = () => {
   // Social media links
   const socialLinks = {
     instagram: "#",
-    tiktok: "#",
+    tiktok: "https://tiktok.com/@hermeal.com",
     facebook: "https://www.facebook.com/share/15SkVRS9G2/"
   };
 
@@ -14,7 +14,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col items-center space-y-6">
           <div className="text-center">
-            <h3 className="text-lg font-semibold text-gray-800">Connect with HerMeals</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Connect with HerMeal</h3>
             <p className="text-gray-600 mt-1">Follow us for healthy meal inspiration and tips</p>
           </div>
           
@@ -65,7 +65,7 @@ const Footer = () => {
           </div>
 
           <div className="text-center text-sm text-gray-500">
-            <p> {new Date().getFullYear()} HerMeals. All rights reserved.</p>
+            <p> {new Date().getFullYear()} HerMeal. All rights reserved.</p>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ const PrivacyPolicy = () => {
         <section>
           <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
           <p className="text-gray-600">
-            At HerMeals, we take your privacy seriously. This Privacy Policy explains how we collect, 
+            At HerMeal, we take your privacy seriously. This Privacy Policy explains how we collect, 
             use, and protect your personal information when you use our meal planning service.
           </p>
         </section>

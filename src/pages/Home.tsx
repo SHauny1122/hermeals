@@ -1,3 +1,4 @@
+// Updated Home page with beautiful UI and animations
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';

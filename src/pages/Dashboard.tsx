@@ -226,14 +226,14 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Dashboard</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Your Dashboard</h1>
       
-      <div className="mb-6 flex justify-end">
-        <div className="inline-flex rounded-lg overflow-hidden">
+      <div className="mb-6 flex flex-col sm:flex-row sm:justify-end space-y-4 sm:space-y-0">
+        <div className="inline-flex rounded-lg overflow-hidden shadow-sm">
           <button
             onClick={() => setActiveTab('meals')}
-            className={`px-4 py-2 ${
+            className={`flex-1 sm:flex-none px-6 py-3 text-base sm:text-sm font-medium ${
               activeTab === 'meals'
                 ? 'bg-emerald-600 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -243,7 +243,7 @@ const Dashboard = () => {
           </button>
           <button
             onClick={() => setActiveTab('shopping')}
-            className={`px-4 py-2 ${
+            className={`flex-1 sm:flex-none px-6 py-3 text-base sm:text-sm font-medium ${
               activeTab === 'shopping'
                 ? 'bg-emerald-600 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -258,17 +258,17 @@ const Dashboard = () => {
         <DashboardShoppingList mealPlan={mealPlan} selectedDay={0} />
       ) : (
         <div className="bg-white rounded-lg shadow-sm">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-900">{mealPlan?.name}</h2>
+          <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">{mealPlan?.name}</h2>
             {mealPlan && <p className="mt-2 text-gray-600">Day {selectedDay + 1} of {mealPlan.meals.length}</p>}
           </div>
 
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex gap-4">
+          <div className="p-4 sm:p-6 border-b border-gray-200">
+            <div className="flex flex-col sm:flex-row gap-4">
               <button 
                 disabled={selectedDay === 0}
                 onClick={() => handleDayChange(selectedDay - 1)}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`w-full sm:w-auto px-6 py-3 rounded-lg font-medium text-base sm:text-sm transition-colors ${
                   selectedDay === 0 
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-emerald-600 text-white hover:bg-emerald-700'
@@ -279,7 +279,7 @@ const Dashboard = () => {
               <button
                 disabled={mealPlan && selectedDay === mealPlan.meals.length - 1}
                 onClick={() => handleDayChange(selectedDay + 1)}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`w-full sm:w-auto px-6 py-3 rounded-lg font-medium text-base sm:text-sm transition-colors ${
                   mealPlan && selectedDay === mealPlan.meals.length - 1
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-emerald-600 text-white hover:bg-emerald-700'
@@ -290,33 +290,33 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 p-6">
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Today's Meals</h3>
-              <div className="grid gap-4">
+          <div className="p-4 sm:p-6">
+            <div className="space-y-6">
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Today's Meals</h3>
+              <div className="grid gap-6">
                 {mealPlan && Object.entries(mealPlan.meals[selectedDay] || {}).map(([mealType, mealData]) => (
                   <div 
                     key={mealType}
                     onClick={() => setSelectedMeal(mealType as keyof DayMeals)}
-                    className={`p-4 rounded-lg border transition-all cursor-pointer ${
+                    className={`p-4 sm:p-6 rounded-lg border transition-all cursor-pointer ${
                       selectedMeal === mealType 
                       ? 'border-emerald-500 bg-emerald-50'
                       : 'border-gray-200 hover:border-emerald-300 hover:bg-gray-50'
                     }`}
                   >
-                    <h4 className="font-medium text-emerald-800 capitalize mb-1">{mealType}</h4>
+                    <h4 className="text-base sm:text-lg font-medium text-emerald-800 capitalize mb-2">{mealType}</h4>
                     <p className="text-gray-700">{mealData.name}</p>
+                    
+                    {selectedMeal === mealType && (
+                      <div className="mt-4 pt-4 border-t border-gray-200">
+                        <div className="prose prose-sm sm:prose max-w-none">
+                          <div className="whitespace-pre-wrap">{mealData.recipe}</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="bg-gray-50 rounded-lg p-6">
-              {renderDailyMealDetail() ? (
-                renderDailyMealDetail()
-              ) : (
-                <p className="text-gray-500 text-center">Select a meal to view details</p>
-              )}
             </div>
           </div>
         </div>

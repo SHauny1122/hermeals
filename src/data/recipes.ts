@@ -1,11 +1,14 @@
 export const recipes = {
   shakes: {
     'Raspberry Lime': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min. Total Time: 5 min.
+Yield: 1
+Prep Time: 5 min
+
 
 Instead of unsweetened almond milk, this shake uses chilled green tea as its base. The green tea helps kickstart your metabolism. The raspberry and spinach provide your body with additional nourishing nutrients.
+
 Ingredients
-• 1 scoop Metabolic Super Protein - Vanilla
+• 1 scoop Super Protein - Vanilla
 • 1 cup chilled green tea
 • ½ cup unsweetened almond milk
 • ½ cup frozen raspberries
@@ -14,17 +17,18 @@ Ingredients
 • 1 large handful raw baby spinach
 
 Instructions
-Place all Ingredients in a blender. Blend until smooth. Serve Immediately.
+1. Place all Ingredients in a blender. Blend until smooth. Serve Immediately.
 
 Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Carrot Cake': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min.
+Yield: 1
+Prep Time: 5 min
 
 Carrots, orange and spice blend together for a carrot-cake lover's dream breakfast. Cinnamon is not only a sweet-tasting spice, it packs plenty of antioxidant power and blood-sugar balancing properties.
 Ingredients
-• 1 scoop Metabolic Super Protein - Vanilla
+• 1 scoop Super Protein - Vanilla
 • 1 carrot, chopped
 • ¼ cup skin-on apple, chopped
 • ½ cup unsweetened almond milk
@@ -35,13 +39,14 @@ Ingredients
 • ½ teaspoon cinnamon
 
 Instructions
-Place all Ingredients in a blender and process until smooth. Serve immediately.
+1.Place all Ingredients in a blender and process until smooth. Serve immediately.
 
 Hormone Type Adaptations
 To reduce carbohydrate amount, omit apple.`,
 
     'Roll Your Own': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min.
+Yield: 1
+Prep Time: 5 min 
 
 Create your own shake with these basic ingredients:
 Ingredients
@@ -53,31 +58,33 @@ Ingredients
 • Optional: spices like cinnamon, nutmeg, or vanilla
 
 Instructions
-Combine all ingredients in a blender and blend until smooth.`,
+1.Combine all ingredients in a blender and blend until smooth.`,
 
     'Peachy Nutmeg': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min. Total Time: 5 min.
+Yield: 1
+Prep Time: 5 min
 
 Have a peachy breakfast that offers the warming spice of nutmeg.
 Ingredients
-• 1 scoop Metabolic Super Protein - Vanilla
+• 1 scoop Super Protein - Vanilla
 • 1 cup unsweetened almond milk
 • ½ cup frozen peaches
 • ½ teaspoon nutmeg
 • 1 tablespoon chia seeds
 
 Instructions
-Add all Ingredients to blender and blend until very smooth.
+1.Add all Ingredients to blender and blend until very smooth.
 
 Hormone Type Adaptations
 To reduce carbohydrates, reduce peaches to ¼ cup.`,
 
     'Salted Dark Chocolate': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min. Total Time: 5 min.
+Yield: 1
+Prep Time: 5 min
 
 If sweet and salty is your thing, this shake has your name on it! Chia adds thickness and crunch. Dark Chocolate, a powerful superfood, is being studied as a high-powered nutrient for memory support.
 Ingredients
-• 1 scoop Metabolic Super Protein - Chocolate
+• 1 scoop Super Protein - Chocolate
 • 1 cup unsweetened almond milk
 • 1 tablespoon dark cocoa powder
 • 1 tablespoon chia seeds
@@ -91,7 +98,8 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Greens and Leaks Omelet': `
-Serves: 1 Prep Time: 10 min. Cook Time: 15 min.
+Yield: 1
+Prep Time: 5 min 
 
 A hearty breakfast omelet filled with nutritious greens and leeks.
 Ingredients
@@ -114,12 +122,13 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Mint Chocolate Crunch': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min. Total Time: 5 min.
+Yield: 1
+Prep Time: 5 min 
 
 A refreshing minty shake with a delightful chocolate crunch that makes for a perfect breakfast or post-workout treat.
 
 Ingredients
-• 1 scoop Metabolic Super Protein - Chocolate
+• 1 scoop Super Protein - Chocolate
 • 1 cup unsweetened almond milk
 • 1/4 cup fresh mint leaves
 • 1 tablespoon cacao nibs
@@ -137,12 +146,13 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Blueberry Eye-Opener': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min. Total Time: 5 min.
+Yield: 1
+Prep Time: 5 min 
 
 Start your day with this antioxidant-rich shake that will give you sustained energy throughout the morning.
 
 Ingredients
-• 1 scoop Metabolic Super Protein - Vanilla
+• 1 scoop Super Protein - Vanilla
 • 1 cup unsweetened coconut milk
 • 1/2 cup fresh or frozen blueberries
 • 1 tablespoon almond butter
@@ -160,12 +170,13 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Chocolate Raspberry': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min. Total Time: 5 min.
+Yield: 1
+Prep Time: 5 min
 
 A delicious combination of rich chocolate and tart raspberries makes this shake both nutritious and satisfying.
 
 Ingredients
-• 1 scoop Metabolic Super Protein - Chocolate
+• 1 scoop Super Protein - Chocolate
 • 1 cup unsweetened almond milk
 • 1/2 cup fresh or frozen raspberries
 • 1 tablespoon raw cacao powder
@@ -183,12 +194,13 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Black Forest Cherry': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min. Total Time: 5 min.
+Yield: 1
+Prep Time: 5 min 
 
 Inspired by the classic Black Forest cake, this healthy shake version gives you the same delicious flavors without the guilt.
 
 Ingredients
-• 1 scoop Metabolic Super Protein - Chocolate
+• 1 scoop Super Protein - Chocolate
 • 1 cup unsweetened almond milk
 • 1/2 cup fresh or frozen dark cherries, pitted
 • 1 tablespoon raw cacao powder
@@ -206,12 +218,13 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Coconut Chai': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min. Total Time: 5 min.
+Yield: 1
+Prep Time: 5 min 
 
 A warming and spicy shake that combines the traditional flavors of chai with creamy coconut.
 
 Ingredients
-• 1 scoop Metabolic Super Protein - Vanilla
+• 1 scoop Super Protein - Vanilla
 • 1 cup unsweetened coconut milk
 • 1/4 teaspoon each: ground cinnamon, cardamom, ginger
 • Pinch of black pepper and cloves
@@ -229,12 +242,13 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Choco-Nutter': `
-Serves: 1 Prep Time: 5 min. Cook Time: 0 min. Total Time: 5 min.
+Yield: 1
+Prep Time: 5 min
 
 A rich and creamy chocolate-nutty shake that's both satisfying and nutritious.
 
 Ingredients
-• 1 scoop Metabolic Super Protein - Chocolate
+• 1 scoop Super Protein - Chocolate
 • 1 cup unsweetened almond milk
 • 1 tablespoon almond butter
 • 1 tablespoon raw cacao powder
@@ -253,7 +267,8 @@ This recipe is well adapted to multiple hormone types.`,
   },
   lunch: {
     'Easy Meat Roll Up': `
-Serves: 1 Prep Time: 10 min. Cook Time: 0 min.
+Yield: 2
+Prep Time: 10 min
 
 A quick and easy lunch option that's high in protein and low in carbs.
 Ingredients
@@ -273,7 +288,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Tuna Artichoke Wraps': `
-Serves: 2 Prep Time: 15 min.
+Yield: 2
+Prep Time: 15 minutes
+
 
 A Mediterranean-inspired wrap that's both nutritious and delicious.
 Ingredients
@@ -295,7 +312,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     '10-Minute Chicken Soup': `
-Serves: 2 Prep Time: 5 min. Cook Time: 10 min.
+Yield: 2
+Prep Time: 10 min
+Cook Time: 10 min
 
 A quick and nourishing soup that's perfect for busy days.
 Ingredients
@@ -315,7 +334,9 @@ Hormone Type Adaptations
 For a heartier meal, add more vegetables.`,
 
     'Chopped Salad': `
-Serves: 2 Prep Time: 15 min.
+Yield: 2
+Prep Time: 10 min 
+
 
 A fresh and crunchy salad that's full of nutrients.
 Ingredients
@@ -338,7 +359,8 @@ Hormone Type Adaptations
 Add protein of choice for a complete meal.`,
 
     'Roll Your Own Salad': `
-Serves: 1 Prep Time: 10 min.
+Yield: 1
+Prep Time: 10 min 
 
 Create your own custom salad with these basic ingredients:
 Ingredients
@@ -374,7 +396,9 @@ Instructions
 4. Enjoy!`,
 
     'Salad Niçoise': `
-Serves: 2 Prep Time: 20 min.
+Yield: 2
+Prep Time: 20 min
+
 
 A classic French salad that's both elegant and satisfying.
 Ingredients
@@ -396,7 +420,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Chicken Mesclun Salad': `
-Serves: 2 Prep Time: 15 min.
+Yield: 4
+Prep Time: 15 min
+Cook Time: 5 min
 
 A light yet satisfying salad with tender chicken and mixed greens.
 Ingredients
@@ -415,7 +441,9 @@ Instructions
 4. Drizzle with dressing and serve`,
 
     'Roast Beef Wraps': `
-Serves: 1 Prep Time: 10 min. Cook Time: 0 min. Total Time: 10 min.
+Yield: 2
+Prep Time: 10 min
+Cook Time: 10 min
 
 A protein-packed lunch wrap that's both satisfying and nutritious.
 
@@ -438,7 +466,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Pesto Chicken Salad': `
-Serves: 1 Prep Time: 15 min. Cook Time: 0 min. Total Time: 15 min.
+Yield: 4
+Prep Time: 15 min
+Cook Time: 5 min
 
 A flavorful and fresh take on traditional chicken salad using homemade pesto.
 
@@ -464,7 +494,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Sole Filet Over Greens': `
-Serves: 1 Prep Time: 10 min. Cook Time: 15 min. Total Time: 25 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 20 min
 
 A light and delicate fish dish served over a bed of fresh greens.
 
@@ -490,7 +522,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Southwest Steak Salad': `
-Serves: 1 Prep Time: 15 min. Cook Time: 10 min. Total Time: 25 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 15 min
 
 A hearty salad featuring grilled steak and southwestern flavors.
 
@@ -518,7 +552,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Salmon Wraps': `
-Serves: 1 Prep Time: 15 min. Cook Time: 0 min. Total Time: 15 min.
+Yield: 1
+Prep Time: 5 min 
+Cook Time: 5 min
 
 A refreshing and omega-3 rich wrap perfect for a nutritious lunch.
 
@@ -543,7 +579,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'California Salad': `
-Serves: 1 Prep Time: 15 min. Cook Time: 0 min. Total Time: 15 min.
+Yield: 1
+Prep Time: 5 min
+Cook Time: 5 min
 
 A fresh and colorful salad featuring California-inspired ingredients.
 
@@ -568,7 +606,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Shrimp Wraps': `
-Serves: 1 Prep Time: 15 min. Cook Time: 5 min. Total Time: 20 min.
+Yield: 4
+Prep Time: 5 min
+Cook Time: 5 min
 
 Light and flavorful shrimp wraps perfect for a protein-rich lunch.
 
@@ -595,7 +635,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Quick Indian Turkey Burger Salad': `
-Serves: 1 Prep Time: 15 min. Cook Time: 10 min. Total Time: 25 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 15 min
 
 A flavorful Indian-spiced turkey burger served over fresh greens.
 
@@ -624,7 +666,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Tahini Chicken Salad': `
-Serves: 1 Prep Time: 15 min. Cook Time: 0 min. Total Time: 15 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 10 min
 
 A Middle Eastern-inspired chicken salad with creamy tahini dressing.
 
@@ -651,7 +695,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Mediterranean Lunch Wrap': `
-Serves: 1 Prep Time: 10 min. Cook Time: 0 min. Total Time: 10 min.
+Yield: 1
+Prep Time: 5 min
+Cook Time: 10 min
 
 A fresh and healthy wrap filled with Mediterranean flavors.
 
@@ -679,7 +725,9 @@ This recipe is well adapted to multiple hormone types.`,
   },
   dinner: {
     'Paleo Fajitas': `
-Serves: 4 Prep Time: 20 min. Cook Time: 15 min.
+Yield: 4
+Prep Time: 20 min
+Cook Time: 15 min
 
 A healthy twist on traditional fajitas, served with lettuce wraps instead of tortillas.
 Ingredients
@@ -702,7 +750,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Chicken Cacciatore': `
-Serves: 4 Prep Time: 15 min. Cook Time: 30 min.
+Yield: 4
+Prep Time: 15 min
+Cook Time: 30 min
 
 A classic Italian dish made healthier.
 Ingredients
@@ -726,7 +776,9 @@ Hormone Type Adaptations
 Serve over zucchini noodles instead of pasta.`,
 
     'Easy Roasted Herb Chicken': `
-Serves: 4 Prep Time: 10 min. Cook Time: 45 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 45 min
 
 A simple but flavorful roasted chicken dish.
 Ingredients
@@ -748,7 +800,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Slow Cooker Coconut Salmon': `
-Serves: 4 Prep Time: 10 min. Cook Time: 2 hrs.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 2 hours
 
 A tender, flavorful salmon dish with Asian-inspired flavors.
 Ingredients
@@ -770,7 +824,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Turkey Chili': `
-Serves: 6 Prep Time: 15 min. Cook Time: 45 min.
+Yield: 3
+Prep Time: 15 min
+Cook Time: 45 min
 
 A hearty, healthy chili that's perfect for meal prep.
 Ingredients
@@ -793,11 +849,13 @@ Hormone Type Adaptations
 For lower carbs, skip the beans.`,
 
     'Grilled Lamb Chops': `
-Serves: 4 Prep Time: 10 min. Cook Time: 12 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 15 min
 
 Perfectly grilled lamb chops with herbs.
 Ingredients
-• 8 lamb chops
+• 4 lamb chops
 • 2 tablespoons olive oil
 • 4 cloves garlic, minced
 • 2 tablespoons fresh rosemary
@@ -814,7 +872,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Slow Cooker Pork Loin with Mustard and Rosemary': `
-Serves: 6 Prep Time: 15 min. Cook Time: 6 hrs.
+Yield: 4
+Prep Time: 15 min
+Cook Time: 3 hours
 
 A tender, flavorful pork dish that's easy to prepare.
 Ingredients
@@ -836,7 +896,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Chicken Marsala': `
-Serves: 2 Prep Time: 15 min. Cook Time: 25 min. Total Time: 40 min.
+Yield: 4
+Prep Time: 15 min
+Cook Time: 25 min
 
 A classic Italian-American dish made healthy with clean ingredients.
 
@@ -864,7 +926,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Flavorful Flank Steak': `
-Serves: 4 Prep Time: 20 min. Cook Time: 15 min. Total Time: 35 min.
+Yield: 4
+Prep Time: 20 min
+Cook Time: 15 min
 
 A perfectly seasoned and grilled flank steak that's both tender and flavorful.
 
@@ -890,7 +954,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Almond Butter Chicken': `
-Serves: 4 Prep Time: 15 min. Cook Time: 25 min. Total Time: 40 min.
+Yield: 4
+Prep Time: 15 min
+Cook Time: 25 min
 
 A unique and flavorful chicken dish with a rich almond butter sauce.
 
@@ -918,7 +984,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Mouthwatering Meatloaf': `
-Serves: 6 Prep Time: 20 min. Cook Time: 1 hour Total Time: 1 hour 20 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 50 min
 
 A healthy twist on classic meatloaf using clean ingredients and fresh herbs.
 
@@ -946,7 +1014,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Dijon Salmon Steaks': `
-Serves: 2 Prep Time: 10 min. Cook Time: 15 min. Total Time: 25 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 15 min
 
 Perfectly cooked salmon with a tangy Dijon mustard crust.
 
@@ -972,7 +1042,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Baked Pesto Chicken': `
-Serves: 4 Prep Time: 15 min. Cook Time: 25 min. Total Time: 40 min.
+Yield: 4
+Prep Time: 5 min
+Cook Time: 25 min
 
 Juicy chicken breasts topped with fresh pesto and baked to perfection.
 
@@ -998,7 +1070,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Rainbow Stuffed Peppers': `
-Serves: 4 Prep Time: 20 min. Cook Time: 35 min. Total Time: 55 min.
+Yield: 4
+Prep Time: 20 min
+Cook Time: 45 min
 
 Colorful bell peppers stuffed with a flavorful meat and vegetable mixture.
 
@@ -1025,7 +1099,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Savory Steak with Mushrooms': `
-Serves: 2 Prep Time: 15 min. Cook Time: 20 min. Total Time: 35 min.
+Yield: 4
+Prep Time: 5 min
+Cook Time: 20 min
 
 A classic combination of perfectly cooked steak and sautéed mushrooms.
 
@@ -1051,7 +1127,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Grilled Chicken Breasts in Tomato Sauce': `
-Serves: 4 Prep Time: 15 min. Cook Time: 25 min. Total Time: 40 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 20 min
 
 Juicy grilled chicken breasts served in a flavorful homemade tomato sauce.
 
@@ -1078,7 +1156,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Salmon Burger': `
-Serves: 2 Prep Time: 15 min. Cook Time: 10 min. Total Time: 25 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 15 min
 
 A healthy and flavorful salmon burger served on lettuce.
 
@@ -1104,7 +1184,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Mini Meatball Minestrone Soup': `
-Serves: 4 Prep Time: 20 min. Cook Time: 30 min. Total Time: 50 min.
+Yield: 8
+Prep Time: 10 min
+Cook Time: 15 min
 
 A hearty and healthy soup featuring mini meatballs and vegetables.
 
@@ -1131,7 +1213,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Slow-Cooker Shrimp Diavolo': `
-Serves: 4 Prep Time: 15 min. Cook Time: 4 hours Total Time: 4 hours 15 min.
+Yield: 4
+Prep Time: 5 min
+Cook Time: 1 hours 30 min
 
 A spicy Italian shrimp dish made easy in the slow cooker.
 
@@ -1156,7 +1240,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Herbed Lamb Kebabs with Grilled Zucchini': `
-Serves: 4 Prep Time: 20 min. Cook Time: 15 min. Total Time: 35 min.
+Yield: 4
+Prep Time: 10 min
+Cook Time: 10 min
 
 Flavorful lamb kebabs seasoned with fresh herbs and served with grilled zucchini.
 
@@ -1183,7 +1269,9 @@ This recipe is well adapted to multiple hormone types.`,
   },
   breakfast: {
     'Italian Sweet-Veggie Scramble': `
-Serves: 1 Prep Time: 10 min. Cook Time: 10 min. Total Time: 20 min.
+Yield: 1
+Prep Time: 10 min
+Cook Time: 10 min
 
 A savory breakfast scramble with Italian-seasoned vegetables.
 
@@ -1207,7 +1295,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Herbed Frittata': `
-Serves: 2 Prep Time: 15 min. Cook Time: 20 min. Total Time: 35 min.
+Yield: 4
+Prep Time: 5 min
+Cook Time: 15 min
 
 A fluffy frittata packed with fresh herbs and vegetables.
 
@@ -1233,7 +1323,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Poached Eggs and Turkey Sausage': `
-Serves: 1 Prep Time: 10 min. Cook Time: 15 min. Total Time: 25 min.
+Yield: 2
+Prep Time: 10 min
+Cook Time: 15 min
 
 A protein-rich breakfast featuring perfectly poached eggs and homemade turkey sausage.
 
@@ -1259,7 +1351,9 @@ Hormone Type Adaptations
 This recipe is well adapted to multiple hormone types.`,
 
     'Breakfast Stack': `
-Serves: 1 Prep Time: 10 min. Cook Time: 15 min. Total Time: 25 min.
+Yield: 1
+Prep Time: 5 min
+Cook Time: 10 min
 
 A hearty breakfast stack featuring eggs, vegetables, and protein.
 

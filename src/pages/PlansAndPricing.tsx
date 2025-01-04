@@ -1,19 +1,66 @@
 import { useNavigate } from 'react-router-dom';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useAuth } from '../context/AuthContext';
+import { mealPlanService } from '../services/mealPlanService';
+import { useEffect, useState } from 'react';
+
+// Determine if we're in development mode
+const isDevelopment = import.meta.env.MODE === 'development';
 
 export default function PlansAndPricing() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [userPlan, setUserPlan] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login', { state: { from: '/plans' } });
+    } else {
+      // Fetch user's current plan
+      const fetchUserPlan = async () => {
+        try {
+          const plan = await mealPlanService.getUserMealPlan(user.uid);
+          if (plan) {
+            setUserPlan(plan.planId);
+          }
+        } catch (error) {
+          console.error('Error fetching user plan:', error);
+        }
+      };
+      fetchUserPlan();
+    }
+  }, [user, navigate]);
 
   const handlePurchaseSuccess = async (planId: string) => {
-    // We'll implement this next to save the purchase and grant access
-    console.log('Purchase successful for:', planId);
-    navigate('/meal-plans');
+    console.log('Starting handlePurchaseSuccess with planId:', planId);
+    console.log('Current user:', user);
+    
+    if (!user) {
+      console.error('No user found');
+      return;
+    }
+
+    try {
+      console.log('Assigning plan to user...');
+      await mealPlanService.assignMealPlan(user.uid, planId);
+      console.log('Plan assigned successfully');
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Error in handlePurchaseSuccess:', error);
+    }
   };
+
+  // Use sandbox client ID in development, live client ID in production
+  const clientId = isDevelopment 
+    ? import.meta.env.VITE_PAYPAL_CLIENT_ID_SANDBOX 
+    : import.meta.env.VITE_PAYPAL_CLIENT_ID;
 
   return (
     <PayPalScriptProvider options={{
-      clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID || "",
-      currency: "USD"
+      clientId: clientId || "",
+      currency: "USD",
+      intent: "capture",
+      components: "buttons"
     }}>
       <div className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-center mb-4">Choose Your Meal Plan</h1>
@@ -59,26 +106,47 @@ export default function PlansAndPricing() {
             </ul>
 
             <div className="mt-8">
-              <PayPalButtons
-                createOrder={(_, actions) => {
-                  return actions.order.create({
-                    intent: "CAPTURE",
-                    purchase_units: [{
-                      amount: {
-                        currency_code: "USD",
-                        value: "29.99"
-                      },
-                      description: "12-Week Regular Meal Plan"
-                    }]
-                  });
-                }}
-                onApprove={async (_, actions) => {
-                  if (actions.order) {
-                    await actions.order.capture();
-                    handlePurchaseSuccess('12-week-plan');
-                  }
-                }}
-              />
+              {userPlan === '12-week-plan' ? (
+                <div className="space-y-4">
+                  <div className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-md text-center font-medium">
+                    Currently Active
+                  </div>
+                  <button
+                    onClick={() => navigate('/dashboard?view=plan')}
+                    className="w-full bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition-colors"
+                  >
+                    View Your Plan
+                  </button>
+                </div>
+              ) : (
+                <PayPalButtons
+                  createOrder={(_, actions) => {
+                    return actions.order.create({
+                      intent: "CAPTURE",
+                      purchase_units: [{
+                        amount: {
+                          currency_code: "USD",
+                          value: "29.99"
+                        },
+                        description: "12-Week Regular Meal Plan"
+                      }]
+                    });
+                  }}
+                  onApprove={async (_, actions) => {
+                    console.log('Payment approved, starting capture...');
+                    try {
+                      if (actions.order) {
+                        const captureResult = await actions.order.capture();
+                        console.log('Payment captured successfully:', captureResult);
+                        await handlePurchaseSuccess('12-week-plan');
+                        console.log('HandlePurchaseSuccess completed');
+                      }
+                    } catch (error) {
+                      console.error('Payment capture error:', error);
+                    }
+                  }}
+                />
+              )}
             </div>
           </div>
 
@@ -121,26 +189,47 @@ export default function PlansAndPricing() {
             </ul>
 
             <div className="mt-8">
-              <PayPalButtons
-                createOrder={(_, actions) => {
-                  return actions.order.create({
-                    intent: "CAPTURE",
-                    purchase_units: [{
-                      amount: {
-                        currency_code: "USD",
-                        value: "19.99"
-                      },
-                      description: "22-Day Meal Plan"
-                    }]
-                  });
-                }}
-                onApprove={async (_, actions) => {
-                  if (actions.order) {
-                    await actions.order.capture();
-                    handlePurchaseSuccess('22-day-plan');
-                  }
-                }}
-              />
+              {userPlan === '22-day-plan' ? (
+                <div className="space-y-4">
+                  <div className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-md text-center font-medium">
+                    Currently Active
+                  </div>
+                  <button
+                    onClick={() => navigate('/dashboard?view=plan')}
+                    className="w-full bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition-colors"
+                  >
+                    View Your Plan
+                  </button>
+                </div>
+              ) : (
+                <PayPalButtons
+                  createOrder={(_, actions) => {
+                    return actions.order.create({
+                      intent: "CAPTURE",
+                      purchase_units: [{
+                        amount: {
+                          currency_code: "USD",
+                          value: "19.99"
+                        },
+                        description: "22-Day Meal Plan"
+                      }]
+                    });
+                  }}
+                  onApprove={async (_, actions) => {
+                    console.log('Payment approved, starting capture...');
+                    try {
+                      if (actions.order) {
+                        const captureResult = await actions.order.capture();
+                        console.log('Payment captured successfully:', captureResult);
+                        await handlePurchaseSuccess('22-day-plan');
+                        console.log('HandlePurchaseSuccess completed');
+                      }
+                    } catch (error) {
+                      console.error('Payment capture error:', error);
+                    }
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

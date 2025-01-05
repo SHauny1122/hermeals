@@ -9,6 +9,8 @@ import ProtectedRoute from './components/ProtectedRoute'
 import PlansAndPricing from './pages/PlansAndPricing'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
+import Smoothies from './pages/Smoothies'
+import ProtectedSmoothies from './components/ProtectedSmoothies';
 import { AuthProvider } from './context/AuthContext'
 import Footer from './components/Footer'
 
@@ -24,6 +26,11 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/plans" element={<PlansAndPricing />} />
+              <Route path="/smoothies" element={
+                <ProtectedSmoothies>
+                  <Smoothies />
+                </ProtectedSmoothies>
+              } />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route 

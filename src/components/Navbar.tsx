@@ -50,6 +50,9 @@ const Navbar = () => {
             <Link to="/" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
               Home
             </Link>
+            <Link to="/smoothies" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+              Smoothies
+            </Link>
             <Link to="/plans" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
               Plans & Pricing
             </Link>
@@ -92,23 +95,30 @@ const Navbar = () => {
           <div className="flex flex-col space-y-2">
             <Link 
               to="/" 
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
             <Link 
-              to="/plans" 
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              to="/smoothies" 
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               onClick={() => setIsMenuOpen(false)}
             >
-              Plans & Pricing
+              Smoothies
+            </Link>
+            <Link 
+              to="/plans" 
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Plans
             </Link>
             {user ? (
               <>
                 <Link 
                   to="/dashboard" 
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Dashboard
@@ -127,7 +137,7 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Login

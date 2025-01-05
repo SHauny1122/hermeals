@@ -1,10 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   // Social media links
   const socialLinks = {
-    instagram: "#",
+    instagram: "https://www.instagram.com/hermealdotcom?igsh=eDBlbDM1b2tmYjdi",
     tiktok: "https://tiktok.com/@hermeal.com",
     facebook: "https://www.facebook.com/share/15SkVRS9G2/",
     twitter: "https://x.com/hermeal75027?t=XWP4t_CICFK_59_DDPa1EQ&s=03"

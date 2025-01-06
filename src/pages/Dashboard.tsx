@@ -6,12 +6,13 @@ import { MealPlan, UserMealPlan, DayMeals } from '../types/mealPlans';
 import { DashboardShoppingList } from '../components/DashboardShoppingList';
 import { recipes } from '../data/recipes';
 import { weeklyPlans } from '../data/weeklyPlans';
+import WeightTracker from '../components/WeightTracker';
 
 const Dashboard = () => {
   const [userPlan, setUserPlan] = useState<UserMealPlan | null>(null);
   const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
   const [selectedWeek, setSelectedWeek] = useState(1);
-  const [activeTab, setActiveTab] = useState<'meals' | 'shopping'>('meals');
+  const [activeTab, setActiveTab] = useState<'meals' | 'shopping' | 'weight'>('meals');
   const [selectedDay, setSelectedDay] = useState<number>(0);
   const [selectedMeal, setSelectedMeal] = useState<keyof DayMeals | null>(null);
   const { user } = useAuth();
@@ -251,11 +252,23 @@ const Dashboard = () => {
           >
             Shopping List
           </button>
+          <button
+            onClick={() => setActiveTab('weight')}
+            className={`flex-1 sm:flex-none px-6 py-3 text-base sm:text-sm font-medium ${
+              activeTab === 'weight'
+                ? 'bg-emerald-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            Weight Tracker
+          </button>
         </div>
       </div>
 
       {activeTab === 'shopping' ? (
         <DashboardShoppingList mealPlan={mealPlan} selectedDay={0} />
+      ) : activeTab === 'weight' ? (
+        <WeightTracker />
       ) : (
         <div className="bg-white rounded-lg shadow-sm">
           <div className="px-4 sm:px-6 py-4 border-b border-gray-200">

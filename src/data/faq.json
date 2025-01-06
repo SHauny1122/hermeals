@@ -1,0 +1,44 @@
+{
+  "faqs": [
+    {
+      "id": 1,
+      "question": "How do you ensure meals are satisfying and filling?",
+      "answer": "Our meals are carefully designed with a perfect balance of proteins, healthy fats, and complex carbohydrates. We incorporate nutrient-dense ingredients like quinoa, legumes, avocados, and nuts that provide sustained energy and keep you feeling full longer. Each meal is portioned to ensure you get the right amount of food while maintaining your health goals."
+    },
+    {
+      "id": 2,
+      "question": "After I finish the meal plans, what should I do next?",
+      "answer": "After completing your meal plan, you have several options: you can restart the plan with new variations, mix and match your favorite recipes to create a personalized routine, or try different seasonal recipes. We also provide guidance on how to maintain your healthy eating habits and continue your wellness journey long-term."
+    },
+    {
+      "id": 3,
+      "question": "Can I customize the portion sizes?",
+      "answer": "Absolutely! All our recipes include serving size information and can be easily scaled up or down. Whether you're cooking for one or meal prepping for the week, you can adjust the portions while maintaining the perfect balance of ingredients."
+    },
+    {
+      "id": 4,
+      "question": "Are seasonal variations of recipes available?",
+      "answer": "Yes, we offer seasonal recipe variations. From warming Chai Latte Chia Pudding for winter to refreshing Cucumber Noodle Bowls for summer, our meal plans adapt to seasonal ingredients and weather-appropriate dishes."
+    },
+    {
+      "id": 5,
+      "question": "Can I use the meal plans for non-diets?",
+      "answer": "Absolutely! Our meal plans are designed to be flexible and can be adapted to suit any dietary preference. Whether you're a vegan, gluten-free, or lactose-intolerant, we have recipes that are suitable for all."
+    },
+    {
+      "id": 6,
+      "question": "How long does it take to prepare these meals?",
+      "answer": "Most of our meals can be prepared in 30 minutes or less. We also include quick 15-minute recipes for busy days and meal prep suggestions for planning ahead. Our recipe instructions are clear and straightforward, making cooking efficient and enjoyable."
+    },
+    {
+      "id": 7,
+      "question": "Do you provide shopping lists for the meal plans?",
+      "answer": "Yes! Each meal plan comes with a comprehensive shopping list organized by food category (produce, pantry items, etc.). This makes grocery shopping efficient and ensures you have all the ingredients needed for your weekly meals."
+    },
+    {
+      "id": 8,
+      "question": "Are smoothies included in the meal plans?",
+      "answer": "Yes, we offer a variety of delicious and nutritious smoothie recipes as part of our meal plans. These smoothies are perfect for breakfast, post-workout recovery, or as healthy snacks. Each smoothie is designed to provide essential nutrients while tasting great."
+    }
+  ]
+}

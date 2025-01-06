@@ -1,0 +1,54 @@
+{
+  "faqs": [
+    {
+      "id": 1,
+      "question": "What types of breakfast options are available in the meal plans?",
+      "answer": "Our meal plans offer a diverse range of breakfast options including smoothie bowls, protein shakes, chia puddings, overnight oats, and creative toast variations. We have everything from Adaptogenic Smoothie Bowls to Sweet Potato Toast with various toppings, ensuring you start your day with nutritious and delicious meals."
+    },
+    {
+      "id": 2,
+      "question": "Are the recipes suitable for people with dietary restrictions?",
+      "answer": "Yes! Our recipes are designed to be adaptable. We offer grain-free options (like Grain-Free Protein Oats), dairy-free alternatives (using coconut and nut-based ingredients), and all our recipes are 100% vegan. Many recipes can also be modified to accommodate nut-free and gluten-free diets."
+    },
+    {
+      "id": 3,
+      "question": "How do you ensure adequate protein in vegan meals?",
+      "answer": "We incorporate protein-rich ingredients throughout our meals including tofu, black beans, chia seeds, nuts, and plant-based protein powders. For example, our Coffee Coconut Protein Cacao Chia Jars and Black Bean & Tofu Enchiladas are specifically designed to provide optimal protein content."
+    },
+    {
+      "id": 4,
+      "question": "Are the ingredients easy to find and prepare?",
+      "answer": "Yes, we use readily available ingredients like sweet potatoes, berries, nuts, and common vegetables. While some recipes include superfoods like matcha or adaptogenic ingredients, these are optional and can be found in most health food stores. Many recipes, like our overnight oats and chia puddings, can be prepared in advance."
+    },
+    {
+      "id": 5,
+      "question": "How much time do I need to prepare these meals?",
+      "answer": "Our recipes range from quick 5-minute preparations (like smoothies) to more elaborate meals. Many breakfast options like Overnight Oats and Chia Puddings can be prepared the night before. We also include meal prep tips to help you organize your cooking schedule efficiently."
+    },
+    {
+      "id": 6,
+      "question": "Do you provide nutritional information for the recipes?",
+      "answer": "Yes, each recipe comes with detailed nutritional information including calories, protein, carbohydrates, and healthy fats. We ensure that all meals are balanced and provide the necessary nutrients for a healthy vegan lifestyle."
+    },
+    {
+      "id": 7,
+      "question": "Can I customize the portion sizes?",
+      "answer": "Absolutely! All our recipes include serving size information and can be easily scaled up or down. Whether you're cooking for one or meal prepping for the week, you can adjust the portions while maintaining the perfect balance of ingredients."
+    },
+    {
+      "id": 8,
+      "question": "Are seasonal variations of recipes available?",
+      "answer": "Yes, we offer seasonal recipe variations. From warming Chai Latte Chia Pudding for winter to refreshing Cucumber Noodle Bowls for summer, our meal plans adapt to seasonal ingredients and weather-appropriate dishes."
+    },
+    {
+      "id": 9,
+      "question": "How do you ensure meals are satisfying and filling?",
+      "answer": "Our recipes are designed with a balance of protein, healthy fats, and complex carbohydrates to keep you satisfied. We incorporate ingredients like avocados, nuts, seeds, and legumes that provide sustained energy and prevent hunger between meals."
+    },
+    {
+      "id": 10,
+      "question": "Do you provide guidance on meal prep and storage?",
+      "answer": "Yes, each recipe includes storage instructions and meal prep tips. Many of our breakfast options like granolas, overnight oats, and chia puddings can be made in batches and stored. We also provide guidance on how to store prepared ingredients and maintain freshness."
+    }
+  ]
+}

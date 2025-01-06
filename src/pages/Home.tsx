@@ -1,10 +1,18 @@
 // Updated Home page with beautiful UI and animations
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import FAQ from '../components/FAQ';
+import { contactService } from '../services/contactService';
+import { useAuth } from '../context/AuthContext';
+import { mealPlanService } from '../services/mealPlanService';
 
 const Home = () => {
   const ref = useRef(null);
+  const { user } = useAuth();
+  const [hasPlan, setHasPlan] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"]
@@ -14,6 +22,47 @@ const Home = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "150%"]);
+
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactMessage, setContactMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactEmail || !contactMessage) return;
+
+    setIsSubmitting(true);
+    try {
+      await contactService.submitMessage(contactEmail, contactMessage);
+      setContactEmail('');
+      setContactMessage('');
+      setSubmitSuccess(true);
+      setTimeout(() => setSubmitSuccess(false), 3000);
+    } catch (error) {
+      console.error('Error submitting message:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  useEffect(() => {
+    const checkUserPlan = async () => {
+      if (user) {
+        try {
+          const userPlan = await mealPlanService.getUserMealPlan(user.uid);
+          setHasPlan(!!userPlan);
+        } catch (error) {
+          console.error('Error checking user plan:', error);
+          setHasPlan(false);
+        }
+      } else {
+        setHasPlan(false);
+      }
+    };
+    
+    checkUserPlan();
+  }, [user]);
 
   return (
     <div className="min-h-screen flex flex-col" ref={ref}>
@@ -95,6 +144,129 @@ const Home = () => {
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-100 rounded-full opacity-20"></div>
           <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-teal-100 rounded-full opacity-20"></div>
+        </div>
+      </div>
+
+      {/* 24/7 Support Banner with Dropdown */}
+      <div className="bg-indigo-600 py-4 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center space-x-3">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="h-6 w-6 text-white" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" 
+              />
+            </svg>
+            <motion.span 
+              className="text-white font-medium hidden md:inline-block"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              24/7 Support Available - We'll Respond Within 24 Hours
+            </motion.span>
+            <div className="relative group">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white text-indigo-600 px-4 py-1 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors"
+                onClick={() => !user && setShowLoginPrompt(true)}
+              >
+                Contact Support
+              </motion.button>
+              
+              {/* Dropdown Contact Options - Only show if user has plan */}
+              {user && hasPlan ? (
+                <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="p-4">
+                    <div className="space-y-4">
+                      {/* Email Option */}
+                      <a 
+                        href="mailto:support@hermeal.com"
+                        className="flex items-center space-x-3 text-gray-700 hover:text-indigo-600 transition-colors"
+                      >
+                        <svg 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          className="h-5 w-5" 
+                          fill="none" 
+                          viewBox="0 0 24 24" 
+                          stroke="currentColor"
+                        >
+                          <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth={2} 
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
+                          />
+                        </svg>
+                        <span className="text-sm">Email Support</span>
+                      </a>
+                      
+                      {/* Quick Contact Form */}
+                      <form className="space-y-2" onSubmit={handleContactSubmit}>
+                        <input
+                          type="email"
+                          placeholder="Your Email"
+                          value={contactEmail}
+                          onChange={(e) => setContactEmail(e.target.value)}
+                          required
+                          className="w-full px-3 py-1 text-sm border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                        <textarea
+                          placeholder="Your Message"
+                          value={contactMessage}
+                          onChange={(e) => setContactMessage(e.target.value)}
+                          required
+                          rows={3}
+                          className="w-full px-3 py-1 text-sm border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className={`w-full px-4 py-1 rounded text-sm font-medium transition-colors ${
+                            isSubmitting 
+                              ? 'bg-gray-400 cursor-not-allowed' 
+                              : submitSuccess 
+                                ? 'bg-green-600 text-white'
+                                : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                          }`}
+                        >
+                          {isSubmitting ? 'Sending...' : submitSuccess ? 'Message Sent!' : 'Send Message'}
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                /* Show upgrade prompt for non-plan users */
+                <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="p-4">
+                    <div className="text-center space-y-3">
+                      <p className="text-gray-600 text-sm">
+                        {!user 
+                          ? "Please log in to access support" 
+                          : "Support is available with any meal plan"}
+                      </p>
+                      <Link
+                        to={user ? "/plans" : "/login"}
+                        className="block w-full bg-indigo-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-indigo-700 transition-colors"
+                      >
+                        {user ? "View Plans" : "Log In"}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -215,8 +387,8 @@ const Home = () => {
             >
               <div className="aspect-w-16 aspect-h-9">
                 <img
-                  src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?q=80&w=2070"
-                  alt="Colorful buddha bowl"
+                  src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2070"
+                  alt="Vibrant healthy meal with quinoa, vegetables, and superfoods"
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
@@ -323,6 +495,9 @@ const Home = () => {
           </p>
         </div>
       </motion.div>
+
+      {/* FAQ Section */}
+      <FAQ />
     </div>
   );
 };

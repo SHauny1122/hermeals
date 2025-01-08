@@ -4,50 +4,54 @@ export interface Ingredient {
   unit?: string;
 }
 
-export interface MealDetail {
+export type PlanType = '22-day' | '12-week';
+
+export interface Recipe {
   name: string;
-  recipe: string;
-  description?: string;
-  ingredients?: Ingredient[];
-  instructions?: string[];
+  description: string;
+  ingredients: { name: string; amount?: string }[];
+  instructions: string[];
   prepTime?: string;
   cookTime?: string;
   servings?: number;
+  recipe?: string;
+}
+
+export interface MealDetail extends Recipe {
+  // Additional fields specific to meal details
 }
 
 export interface DayMeals {
-  breakfast: MealDetail;
-  lunch: MealDetail;
-  dinner: MealDetail;
-}
-
-export interface WeekMeals {
-  [key: string]: DayMeals;
+  breakfast: Recipe;
+  lunch: Recipe;
+  dinner: Recipe;
 }
 
 export interface MealPlan {
-  id?: string;
-  name?: string;
-  description?: string;
-  duration?: number;
-  type?: 'regular' | 'smoothie' | 'challenge';
+  id: string;
+  name: string;
+  description: string;
+  duration: number;
+  type: 'challenge' | 'regular';
   meals: DayMeals[];
-  shoppingLists?: {
+  shoppingLists: Array<{
     week: number;
-    items: {
+    items: Array<{
       category: string;
       items: string[];
-    }[];
-  }[];
+    }>;
+  }>;
 }
 
 export interface UserMealPlan {
   userId: string;
-  planId: string;
+  planIds: string[];
+  selectedPlan: string;
+  hasAllPlans: boolean;
+  availablePlans: string[];
   startDate: Date;
   currentDay: number;
   completed: boolean;
-  mealPlan?: MealPlan;
 }
 
 export interface RecipeCategory {

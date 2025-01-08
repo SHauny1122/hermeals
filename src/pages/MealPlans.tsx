@@ -102,18 +102,20 @@ const MealPlans = () => {
     return (
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">No Active Meal Plan</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">No Meal Plan Found</h2>
           <p className="text-gray-600 mb-8">You haven't purchased a meal plan yet.</p>
           <button
             onClick={() => navigate('/plans')}
-            className="bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors"
+            className="bg-emerald-600 text-white px-6 py-3 rounded-md hover:bg-emerald-700 transition-colors"
           >
-            View Plans & Pricing
+            View Available Plans
           </button>
         </div>
       </div>
     );
   }
+
+  const currentPlan = mealPlanService.getMealPlan(userPlan.planId === '22-day-plan' ? '22-day' : '12-week');
 
   // If user has a plan, show their plan
   return (
@@ -127,7 +129,7 @@ const MealPlans = () => {
         </div>
 
         <div className="space-y-8">
-          {userPlan.mealPlan?.meals.map((day, index) => (
+          {currentPlan.meals.map((day, index) => (
             <div 
               key={index}
               className={`p-6 rounded-lg ${

@@ -1,57 +1,237 @@
-import { MealPlan, MealDetail, DayMeals } from '../types/mealPlans';
-import { weeklyPlans } from './weeklyPlans';
-import { findRecipe } from '../utils/recipeUtils';
+import { MealPlan, DayMeals } from '../types/mealPlans';
+import { breakfastRecipes } from './twentyTwoDayRecipes/breakfastRecipes';
+import { lunchRecipes } from './twentyTwoDayRecipes/lunchRecipes';
+import { dinnerRecipes } from './twentyTwoDayRecipes/dinnerRecipes';
 
-// Helper function to parse meal from text
-const parseMeal = (mealText: string): MealDetail => {
-  const name = mealText.replace(/\n/g, ' ').trim();
-  const recipeContent = findRecipe({ name, recipe: '', description: name });
-  return {
-    name,
-    recipe: recipeContent || '',
-    description: name
-  };
-};
-
-// Helper function to parse a day's meals
-const parseDayMeals = (day: { breakfast: string; lunch: string; dinner: string }): DayMeals => {
-  return {
-    breakfast: parseMeal(day.breakfast),
-    lunch: parseMeal(day.lunch),
-    dinner: parseMeal(day.dinner)
-  };
-};
-
-// Generate 22 days of meals from the first 3 weeks + 1 day
-const generateTwentyTwoDayMeals = (): DayMeals[] => {
-  const allMeals: DayMeals[] = [];
-  
-  // Get first 3 weeks
-  for (let week = 1; week <= 3; week++) {
-    const weekKey = `week${week}` as keyof typeof weeklyPlans;
-    const weekData = weeklyPlans[weekKey];
-    
-    // Convert each day's meals
-    Object.values(weekData).forEach(dayMeals => {
-      allMeals.push(parseDayMeals(dayMeals));
-    });
+// Convert Recipe to MealDetail
+const convertToMealDetail = (recipe: any) => {
+  if (!recipe) {
+    throw new Error('Recipe not found');
   }
-  
-  // Get the first day of week 4 to complete 22 days
-  const week4Key = 'week4' as keyof typeof weeklyPlans;
-  const week4Data = weeklyPlans[week4Key];
-  const mondayMeals = week4Data.Monday;
-  allMeals.push(parseDayMeals(mondayMeals));
-  
-  // Return only the first 22 days
-  return allMeals.slice(0, 22);
+  return {
+    name: recipe.name,
+    description: recipe.description || '',
+    recipe: recipe.instructions ? recipe.instructions.join('\n') : '',
+    ingredients: recipe.ingredients ? recipe.ingredients.map((ingredient: string) => ({
+      name: ingredient,
+      amount: '',
+    })) : [],
+    instructions: recipe.instructions || [],
+    prepTime: recipe.prepTime || '',
+    cookTime: recipe.cookTime || '',
+    servings: recipe.servings || 1
+  };
 };
 
-export const twentyTwoDayPlan: MealPlan = {
-  id: '22-day-plan',
-  name: '22-Day Challenge Plan',
-  description: 'An intensive 22-day program designed to kickstart your healthy eating habits',
-  duration: 22,
-  type: 'challenge',
-  meals: generateTwentyTwoDayMeals()
+const twentyTwoDayMeals: DayMeals[] = [
+  // Week 1
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Buffalo Chicken Fingers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Chicken Marsala"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Chicken Salad Pepper Stuffers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Baked Salmon with Asparagus"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Grilled Chicken Caesar Salad"]),
+    dinner: convertToMealDetail(dinnerRecipes["Herb-Roasted Chicken"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Turkey and Avocado Wrap"]),
+    dinner: convertToMealDetail(dinnerRecipes["Chicken Marsala"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Buffalo Chicken Fingers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Baked Salmon with Asparagus"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Chicken Salad Pepper Stuffers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Herb-Roasted Chicken"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Grilled Chicken Caesar Salad"]),
+    dinner: convertToMealDetail(dinnerRecipes["Chicken Marsala"])
+  },
+  // Week 2
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Turkey and Avocado Wrap"]),
+    dinner: convertToMealDetail(dinnerRecipes["Baked Salmon with Asparagus"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Buffalo Chicken Fingers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Herb-Roasted Chicken"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Chicken Salad Pepper Stuffers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Chicken Marsala"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Grilled Chicken Caesar Salad"]),
+    dinner: convertToMealDetail(dinnerRecipes["Baked Salmon with Asparagus"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Turkey and Avocado Wrap"]),
+    dinner: convertToMealDetail(dinnerRecipes["Herb-Roasted Chicken"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Buffalo Chicken Fingers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Chicken Marsala"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Chicken Salad Pepper Stuffers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Baked Salmon with Asparagus"])
+  },
+  // Week 3
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Grilled Chicken Caesar Salad"]),
+    dinner: convertToMealDetail(dinnerRecipes["Herb-Roasted Chicken"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Turkey and Avocado Wrap"]),
+    dinner: convertToMealDetail(dinnerRecipes["Chicken Marsala"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Buffalo Chicken Fingers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Baked Salmon with Asparagus"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Chicken Salad Pepper Stuffers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Herb-Roasted Chicken"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Grilled Chicken Caesar Salad"]),
+    dinner: convertToMealDetail(dinnerRecipes["Chicken Marsala"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Turkey and Avocado Wrap"]),
+    dinner: convertToMealDetail(dinnerRecipes["Baked Salmon with Asparagus"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Apple Strudel Shake"]),
+    lunch: convertToMealDetail(lunchRecipes["Buffalo Chicken Fingers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Herb-Roasted Chicken"])
+  },
+  {
+    breakfast: convertToMealDetail(breakfastRecipes["Breakfast Stack"]),
+    lunch: convertToMealDetail(lunchRecipes["Chicken Salad Pepper Stuffers"]),
+    dinner: convertToMealDetail(dinnerRecipes["Chicken Marsala"])
+  }
+];
+
+const twentyTwoDayShoppingLists = [
+  // Week 1
+  {
+    week: 1,
+    items: [
+      {
+        category: "Proteins",
+        items: [
+          "2 lbs chicken breast",
+          "1 lb salmon fillet",
+          "1 lb turkey breast"
+        ]
+      },
+      {
+        category: "Produce",
+        items: [
+          "2 bunches kale",
+          "3 avocados",
+          "1 lb mixed berries"
+        ]
+      },
+      {
+        category: "Pantry Items",
+        items: [
+          "olive oil",
+          "coconut oil",
+          "apple cider vinegar"
+        ]
+      }
+    ]
+  },
+  // Week 2
+  {
+    week: 2,
+    items: [
+      {
+        category: "Proteins",
+        items: [
+          "2 lbs chicken breast",
+          "1 lb cod fillet",
+          "1 lb shrimp"
+        ]
+      },
+      {
+        category: "Produce",
+        items: [
+          "2 bunches spinach",
+          "4 bell peppers",
+          "2 lb broccoli"
+        ]
+      },
+      {
+        category: "Pantry Items",
+        items: [
+          "quinoa",
+          "brown rice",
+          "tamari sauce"
+        ]
+      }
+    ]
+  },
+  // Week 3
+  {
+    week: 3,
+    items: [
+      {
+        category: "Proteins",
+        items: [
+          "2 lbs chicken breast",
+          "1 lb cod fillet",
+          "1 lb shrimp"
+        ]
+      },
+      {
+        category: "Produce",
+        items: [
+          "2 bunches spinach",
+          "4 bell peppers",
+          "2 lb broccoli"
+        ]
+      },
+      {
+        category: "Pantry Items",
+        items: [
+          "quinoa",
+          "brown rice",
+          "tamari sauce"
+        ]
+      }
+    ]
+  }
+];
+
+export const twentyTwoDayPlan: { meals: DayMeals[] } = {
+  meals: twentyTwoDayMeals
 };

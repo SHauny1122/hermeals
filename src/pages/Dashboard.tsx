@@ -69,10 +69,102 @@ export default function Dashboard() {
   }
 
   if (viewParam === 'plan' && mealPlan) {
+    // Handle Mediterranean Plan separately
+    if (mealPlan.type === 'mediterranean') {
+      return (
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-8">
+            {/* Plan Selection */}
+            {userPlan?.hasAllPlans && (
+              <div className="mb-6">
+                <h3 className="text-lg font-medium text-gray-700 mb-2">Select Plan:</h3>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => {
+                      const newPlan = mealPlanService.getMealPlan('22-day');
+                      setMealPlan(newPlan);
+                      setSelectedWeek(1);
+                      setSelectedDay(0);
+                    }}
+                    className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+                  >
+                    22-Day Challenge
+                  </button>
+                  <button
+                    onClick={() => {
+                      const newPlan = mealPlanService.getMealPlan('12-week');
+                      setMealPlan(newPlan);
+                      setSelectedWeek(1);
+                      setSelectedDay(0);
+                    }}
+                    className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+                  >
+                    12-Week Plan
+                  </button>
+                  <button
+                    className="px-4 py-2 rounded-lg bg-emerald-600 text-white"
+                  >
+                    Mediterranean Plan
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Mediterranean Plan Content */}
+            <h2 className="text-2xl font-bold text-blue-600 mb-6">Mediterranean Diet Plan</h2>
+            <div className="space-y-6">
+              {mealPlan.meals.map((day, index) => (
+                <div key={index} className="p-6 rounded-lg border border-gray-200">
+                  <h3 className="text-xl font-semibold mb-4">
+                    {`${getDayName(index)} (Day ${index + 1})`}
+                  </h3>
+                  <div className="space-y-4">
+                    {Object.entries(day).map(([mealType, meal]) => {
+                      if (mealType === 'day') return null;
+                      return (
+                        <div key={mealType} className="space-y-2">
+                          <h4 className="text-lg font-medium capitalize text-emerald-700">{mealType}</h4>
+                          <p className="text-gray-800 font-medium">{meal.name}</p>
+                          <p className="text-gray-600">{meal.recipe}</p>
+                          {meal.ingredients && (
+                            <div className="mt-4">
+                              <h5 className="font-medium text-gray-700">Ingredients:</h5>
+                              <ul className="list-disc pl-5 mt-2">
+                                {meal.ingredients.map((ingredient, i) => (
+                                  <li key={i} className="text-gray-600">
+                                    {ingredient.amount} {ingredient.unit} {ingredient.name}
+                                    {ingredient.notes && ` (${ingredient.notes})`}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {meal.instructions && (
+                            <div className="mt-4">
+                              <h5 className="font-medium text-gray-700">Instructions:</h5>
+                              <ol className="list-decimal pl-5 mt-2">
+                                {meal.instructions.map((step, i) => (
+                                  <li key={i} className="text-gray-600">{step}</li>
+                                ))}
+                              </ol>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Original code for 12-week and 22-day plans
     const totalWeeks = mealPlan.duration === 22 ? 3 : 12;
     const weeks = Array.from({ length: totalWeeks }, (_, i) => i + 1);
     
-    // Get the current week's meals
     const startDayIndex = (selectedWeek - 1) * 7;
     const endDayIndex = Math.min(startDayIndex + 7, mealPlan.meals.length);
     const currentWeekMeals = mealPlan.meals.slice(startDayIndex, endDayIndex);
@@ -114,6 +206,21 @@ export default function Dashboard() {
                   }`}
                 >
                   12-Week Plan
+                </button>
+                <button
+                  onClick={() => {
+                    const newPlan = mealPlanService.getMealPlan('mediterranean');
+                    setMealPlan(newPlan);
+                    setSelectedWeek(1);
+                    setSelectedDay(0);
+                  }}
+                  className={`px-4 py-2 rounded-lg ${
+                    mealPlan.type === 'mediterranean'
+                      ? 'bg-emerald-600 text-white' 
+                      : 'bg-gray-200 hover:bg-gray-300'
+                  }`}
+                >
+                  Mediterranean Plan
                 </button>
               </div>
             </div>
@@ -342,7 +449,7 @@ export default function Dashboard() {
                       : 'border-gray-200 hover:border-emerald-300 hover:bg-gray-50'
                     }`}
                   >
-                    <h4 className="text-base sm:text-lg font-medium text-emerald-800 capitalize mb-2">{mealType}</h4>
+                    <h4 className="text-base sm:text-lg font-medium text-emerald-700 capitalize mb-2">{mealType}</h4>
                     <p className="text-gray-700">{mealData.name || ''}</p>
                     
                     {selectedMeal === mealType && (
@@ -387,3 +494,8 @@ export default function Dashboard() {
     </div>
   );
 };
+
+function getDayName(dayNumber: number) {
+  const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  return dayNames[dayNumber % 7];
+}

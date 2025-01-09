@@ -7,9 +7,10 @@ import { MealPlan, DayMeals, UserMealPlan } from '../types/mealPlans';
 import { db } from '../config/firebase';
 import { twentyTwoDayPlan } from '../data/twentyTwoDayPlan';
 import { weeklyPlans } from '../data/weeklyPlans';
+import { mediterraneanPlan } from '../data/mediterraneanPlan';
 import { recipes } from '../data/recipes';
 
-export type PlanType = '12-week' | '22-day';
+export type PlanType = '12-week' | '22-day' | 'mediterranean';
 
 export interface MealPlanService {
   getCurrentPlan: () => PlanType;
@@ -27,6 +28,18 @@ class MealPlanServiceImpl implements MealPlanService {
   }
 
   getMealPlan(planType: PlanType): MealPlan {
+    if (planType === 'mediterranean') {
+      return {
+        id: 'mediterranean-plan',
+        name: 'Mediterranean Diet Plan',
+        description: '7-day Mediterranean-style meal plan',
+        duration: 7,
+        type: 'mediterranean',
+        meals: mediterraneanPlan.meals,
+        shoppingLists: []
+      };
+    }
+    
     if (planType === '22-day' || planType === '22-day-plan') {
       return {
         id: '22-day-plan',
@@ -168,7 +181,7 @@ class MealPlanServiceImpl implements MealPlanService {
         selectedPlan,
         mealPlan,
         hasAllPlans: true,
-        availablePlans: ['22-day', '12-week']
+        availablePlans: ['22-day', '12-week', 'mediterranean']
       };
     }
     
@@ -176,7 +189,7 @@ class MealPlanServiceImpl implements MealPlanService {
   }
 
   async assignMealPlan(userId: string, planId: string): Promise<void> {
-    const planType: PlanType = planId.includes('22') ? '22-day' : '12-week';
+    const planType: PlanType = planId.includes('22') ? '22-day' : planId.includes('mediterranean') ? 'mediterranean' : '12-week';
     const mealPlan = this.getMealPlan(planType);
     
     const userMealPlan: UserMealPlan = {
@@ -184,9 +197,9 @@ class MealPlanServiceImpl implements MealPlanService {
       planId,
       currentDay: 0,
       hasAllPlans: true,
-      planIds: ['22-day-plan', '12-week-plan'],
+      planIds: ['22-day-plan', '12-week-plan', 'mediterranean-plan'],
       selectedPlan: planType,
-      availablePlans: ['22-day', '12-week'],
+      availablePlans: ['22-day', '12-week', 'mediterranean'],
       mealPlan
     };
 
@@ -200,7 +213,7 @@ class MealPlanServiceImpl implements MealPlanService {
     if (!docSnap.exists()) throw new Error('No meal plan found for user');
     
     const data = docSnap.data() as UserMealPlan;
-    const maxDays = data.selectedPlan === '22-day' ? 22 : 84;
+    const maxDays = data.selectedPlan === '22-day' ? 22 : data.selectedPlan === 'mediterranean' ? 7 : 84;
     
     await setDoc(userMealPlanRef, {
       ...data,

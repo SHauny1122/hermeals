@@ -1,10 +1,10 @@
+import React, { useEffect, useState } from 'react';
+import { CheckIcon } from '@heroicons/react/24/solid';
 import { useNavigate } from 'react-router-dom';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useAuth } from '../context/AuthContext';
 import { mealPlanService } from '../services/mealPlanService';
-import { useEffect, useState } from 'react';
-import { twentyTwoDayPlan } from '../data/twentyTwoDayPlan';
-import { MealPlan, UserMealPlan } from '../types/mealPlans';
+import { UserMealPlan } from '../types/mealPlans';
 
 // Determine if we're in development mode
 const isDevelopment = import.meta.env.MODE === 'development';
@@ -20,37 +20,31 @@ const paypalOptions = {
   vault: false
 };
 
+const features = [
+  '12-Week Comprehensive Meal Plan',
+  '22-Day Plant-Based Plan',
+  '7-Day Mediterranean Plan',
+  'Shopping Lists',
+  'Nutritional Information',
+  'Recipe Variations',
+  'Mobile-Friendly Access',
+  'Print-Ready Recipes',
+];
+
 export default function PlansAndPricing() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [userPlan, setUserPlan] = useState<UserMealPlan | null>(null);
-  const [previewPlans, setPreviewPlans] = useState<{[key: string]: MealPlan}>({});
-  const [selectedMeal, setSelectedMeal] = useState<{
-    name: string;
-    description: string;
-    prepTime: string;
-    cookTime: string;
-    servings: number;
-    ingredients: Array<{name: string}>;
-    instructions: string[];
-  } | null>(null);
-  const [loading, setLoading] = useState(true);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [userPlan, setUserPlan] = useState<UserMealPlan | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load preview plans
-    const twentyTwoDayPreview = mealPlanService.getMealPlan('22-day');
-    setPreviewPlans({
-      '22-day': twentyTwoDayPreview
-    });
-
     // Fetch user's current plan if logged in
     if (user) {
       const fetchUserPlan = async () => {
         try {
           const plan = await mealPlanService.getUserMealPlan(user.uid);
-          console.log('Fetched user plan:', plan);
           setUserPlan(plan);
         } catch (error) {
           console.error('Error fetching user plan:', error);
@@ -64,346 +58,250 @@ export default function PlansAndPricing() {
     }
   }, [user]);
 
-  const handlePurchaseSuccess = async (planId: string) => {
-    console.log('Starting handlePurchaseSuccess with planId:', planId);
-    console.log('Current user:', user);
-    
-    if (!user) {
-      console.error('No user found');
-      return;
-    }
-
-    try {
-      console.log('Assigning plans to user...');
-      // Assign both plans to the user
-      await mealPlanService.assignMealPlan(user.uid, '22-day');
-      await mealPlanService.assignMealPlan(user.uid, '12-week');
-      console.log('Plans assigned successfully');
-      navigate('/dashboard');
-    } catch (error) {
-      console.error('Error in handlePurchaseSuccess:', error);
-    }
-  };
-
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
       </div>
     );
   }
 
   return (
     <PayPalScriptProvider options={paypalOptions}>
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-center mb-4">Choose Your Meal Plan</h1>
-        <p className="text-center text-gray-600 mb-12">Select the perfect meal plan for your journey</p>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* 12-Week Plan Card */}
-          <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-shadow">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900">12-Week Regular Plan</h2>
-              <p className="mt-4 text-gray-600">A comprehensive 12-week program with balanced meals</p>
-              <div className="mt-6">
-                <span className="text-5xl font-bold text-emerald-600">$29.99</span>
-                <span className="text-gray-600">/once-off</span>
-              </div>
-            </div>
-
-            <ul className="mt-8 space-y-4">
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                84 days of planned meals
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Complete shopping lists
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Detailed recipes & instructions
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Lifetime access
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span className="font-medium text-emerald-700">FREE Smoothie Recipes Included ($19.99 value)</span>
-              </li>
-            </ul>
-
-            <div className="mt-8">
-              {userPlan?.hasAllPlans ? (
-                <div className="space-y-4">
-                  <div className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-md text-center font-medium">
-                    Plan Active
-                  </div>
-                  <button
-                    onClick={() => navigate('/dashboard?view=plan&type=12-week')}
-                    className="w-full bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition-colors"
-                  >
-                    View Plan
-                  </button>
-                </div>
-              ) : null}
-            </div>
+      <div className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl sm:text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              {userPlan?.hasAllPlans ? 'Your Meal Plans' : 'Simple, Affordable Pricing'}
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              {userPlan?.hasAllPlans 
+                ? 'Access your purchased meal plans below'
+                : 'Get access to our complete collection of healthy meal plans, including our new Mediterranean diet plan.'
+              }
+            </p>
           </div>
 
-          {/* 22-Day Plan Card */}
-          <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-shadow">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900">22-Day Challenge Plan</h2>
-              <p className="mt-4 text-gray-600">Perfect for a fresh start or reset</p>
-              <div className="mt-6">
-                <span className="text-5xl font-bold text-emerald-600">$29.99</span>
-                <span className="text-gray-600">/once-off</span>
-              </div>
-            </div>
-
-            <ul className="mt-8 space-y-4">
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                22 days of delicious meals
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Complete shopping lists
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Detailed recipes & instructions
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Lifetime access
-              </li>
-            </ul>
-
-            <div className="mt-8">
-              {userPlan?.hasAllPlans ? (
-                <div className="space-y-4">
-                  <div className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-md text-center font-medium">
-                    Plan Active
-                  </div>
-                  <button
-                    onClick={() => navigate('/dashboard?view=plan&type=22-day')}
-                    className="w-full bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition-colors"
-                  >
-                    View Plan
-                  </button>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-
-        {/* Success Message */}
-        {showSuccessMessage && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg p-8 max-w-md w-full text-center">
-              <div className="mb-4">
-                <svg className="w-16 h-16 text-emerald-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank You for Your Purchase!</h3>
-              <p className="text-gray-600 mb-6">You now have access to both meal plans. Start your journey to a healthier lifestyle today!</p>
-              <button
-                onClick={() => {
-                  setShowSuccessMessage(false);
-                  navigate('/dashboard');
-                }}
-                className="w-full bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition-colors"
-              >
-                Go to Dashboard
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Success Toast */}
-        {showSuccessToast && (
-          <div className="fixed bottom-4 right-4 bg-emerald-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in">
-            Payment successful! You now have access to both meal plans.
-          </div>
-        )}
-
-        {/* Single PayPal Button Section */}
-        {!userPlan?.hasAllPlans && (
-          <div className="bg-emerald-50 p-8 rounded-lg text-center mt-12">
-            <h2 className="text-2xl font-bold text-emerald-800 mb-4">Special Offer!</h2>
-            <p className="text-emerald-700 mb-8">Get access to BOTH meal plans for the price of one!</p>
-            {user ? (
-              <div className="max-w-sm mx-auto">
-                <PayPalButtons
-                  style={{ layout: "vertical" }}
-                  createOrder={(data, actions) => {
-                    return actions.order.create({
-                      purchase_units: [{
-                        amount: {
-                          value: "29.99"
-                        }
-                      }]
-                    });
-                  }}
-                  onApprove={async (data, actions) => {
-                    try {
-                      if (!user) {
-                        console.error('No user found');
-                        return;
-                      }
-
-                      if (actions.order) {
-                        const captureResult = await actions.order.capture();
-                        console.log('Payment captured successfully:', captureResult);
-                        
-                        // Assign both plans to the user
-                        await mealPlanService.assignMealPlan(user.uid, '12-week');
-                        await mealPlanService.assignMealPlan(user.uid, '22-day');
-                        
-                        // Fetch updated plan status
-                        const updatedPlan = await mealPlanService.getUserMealPlan(user.uid);
-                        setUserPlan(updatedPlan);
-                        
-                        // Show success message and toast
-                        setShowSuccessMessage(true);
-                        setShowSuccessToast(true);
-                        
-                        // Hide toast after 5 seconds
-                        setTimeout(() => {
-                          setShowSuccessToast(false);
-                        }, 5000);
-                        
-                        console.log('Both plans assigned successfully');
-                      }
-                    } catch (error) {
-                      console.error('Error:', error);
-                      alert('There was an error processing your payment. Please try again.');
-                    }
-                  }}
-                />
-              </div>
-            ) : (
-              <button
-                onClick={() => navigate('/login')}
-                className="bg-emerald-600 text-white px-8 py-3 rounded-md hover:bg-emerald-700 transition-colors"
-              >
-                Login to Purchase
-              </button>
-            )}
-          </div>
-        )}
-
-        {userPlan?.hasAllPlans && (
-          <div className="bg-emerald-50 p-8 rounded-lg text-center mt-12">
-            <div className="space-y-4">
-              <div className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-md text-center font-medium">
-                You have access to both plans!
-              </div>
-              <div className="flex justify-center gap-4">
+          {userPlan?.hasAllPlans ? (
+            // Show purchased plans
+            <div className="mt-16 grid gap-8 md:grid-cols-3">
+              {/* 12-Week Plan Card */}
+              <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">12-Week Plan</h3>
+                <p className="text-gray-600 mb-6">A comprehensive 12-week program with balanced meals</p>
                 <button
                   onClick={() => navigate('/dashboard?view=plan&type=12-week')}
-                  className="bg-emerald-600 text-white px-6 py-2 rounded-md hover:bg-emerald-700 transition-colors"
+                  className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
                 >
-                  View 12-Week Plan
+                  View Plan
                 </button>
+              </div>
+
+              {/* 22-Day Plan Card */}
+              <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">22-Day Plan</h3>
+                <p className="text-gray-600 mb-6">Perfect for a fresh start or reset</p>
                 <button
                   onClick={() => navigate('/dashboard?view=plan&type=22-day')}
-                  className="bg-emerald-600 text-white px-6 py-2 rounded-md hover:bg-emerald-700 transition-colors"
+                  className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
                 >
-                  View 22-Day Plan
+                  View Plan
+                </button>
+              </div>
+
+              {/* Mediterranean Plan Card */}
+              <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Mediterranean Plan</h3>
+                <p className="text-gray-600 mb-6">7-day Mediterranean-style meal plan</p>
+                <button
+                  onClick={() => navigate('/dashboard?view=plan&type=mediterranean')}
+                  className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+                >
+                  View Plan
                 </button>
               </div>
             </div>
-          </div>
-        )}
-        
-        {/* Recipe Modal */}
-        {selectedMeal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 space-y-6">
-                {/* Close button */}
-                <div className="flex justify-between items-center">
-                  <h3 className="text-2xl font-bold text-emerald-700">{selectedMeal.name}</h3>
-                  <button 
-                    onClick={() => setSelectedMeal(null)}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
+          ) : (
+            // Show payment option
+            <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+              <div className="p-8 sm:p-10 lg:flex-auto">
+                <h3 className="text-2xl font-bold tracking-tight text-gray-900">Complete Package</h3>
+                <p className="mt-6 text-base leading-7 text-gray-600">
+                  Get instant access to all our meal plans, including:
+                </p>
+                <div className="mt-10 flex items-center gap-x-4">
+                  <h4 className="flex-none text-sm font-semibold leading-6 text-indigo-600">What's included</h4>
+                  <div className="h-px flex-auto bg-gray-100" />
                 </div>
+                <ul
+                  role="list"
+                  className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
+                >
+                  {features.map((feature) => (
+                    <li key={feature} className="flex gap-x-3">
+                      <CheckIcon className="h-6 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+                <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+                  <div className="mx-auto max-w-xs px-8">
+                    <p className="text-base font-semibold text-gray-600">One-time payment</p>
+                    <p className="mt-6 flex items-baseline justify-center gap-x-2">
+                      <span className="text-5xl font-bold tracking-tight text-gray-900">$29.99</span>
+                      <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">USD</span>
+                    </p>
+                    {user ? (
+                      <div className="mt-10">
+                        <PayPalButtons
+                          style={{ layout: "vertical" }}
+                          createOrder={(data, actions) => {
+                            return actions.order.create({
+                              purchase_units: [{
+                                amount: {
+                                  value: "29.99"
+                                }
+                              }]
+                            });
+                          }}
+                          onApprove={async (data, actions) => {
+                            try {
+                              if (!user) {
+                                console.error('No user found');
+                                return;
+                              }
 
-                {/* Time and Servings Info */}
-                <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                  {selectedMeal.prepTime && (
-                    <div>
-                      <span className="font-medium">Prep Time:</span> {selectedMeal.prepTime}
-                    </div>
-                  )}
-                  {selectedMeal.cookTime && (
-                    <div>
-                      <span className="font-medium">Cook Time:</span> {selectedMeal.cookTime}
-                    </div>
-                  )}
-                  {selectedMeal.servings && (
-                    <div>
-                      <span className="font-medium">Servings:</span> {selectedMeal.servings}
-                    </div>
-                  )}
-                </div>
-
-                {/* Description */}
-                {selectedMeal.description && (
-                  <p className="text-gray-600">{selectedMeal.description}</p>
-                )}
-
-                {/* Ingredients */}
-                <div className="space-y-2">
-                  <h4 className="text-xl font-semibold text-emerald-800">Ingredients</h4>
-                  <ul className="list-disc pl-5 space-y-1">
-                    {selectedMeal.ingredients.map((ingredient, idx) => (
-                      <li key={idx} className="text-gray-700">{ingredient.name}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Instructions */}
-                <div className="space-y-2">
-                  <h4 className="text-xl font-semibold text-emerald-800">Instructions</h4>
-                  <ol className="list-decimal pl-5 space-y-2">
-                    {selectedMeal.instructions.map((instruction, idx) => (
-                      <li key={idx} className="text-gray-700">{instruction}</li>
-                    ))}
-                  </ol>
+                              if (actions.order) {
+                                const captureResult = await actions.order.capture();
+                                console.log('Payment captured successfully:', captureResult);
+                                
+                                // Assign both plans to the user
+                                await mealPlanService.assignMealPlan(user.uid, '12-week');
+                                await mealPlanService.assignMealPlan(user.uid, '22-day');
+                                
+                                // Show success message and toast
+                                setShowSuccessMessage(true);
+                                setShowSuccessToast(true);
+                                
+                                // Hide toast after 5 seconds
+                                setTimeout(() => {
+                                  setShowSuccessToast(false);
+                                }, 5000);
+                                
+                                console.log('Both plans assigned successfully');
+                                navigate('/dashboard');
+                              }
+                            } catch (error) {
+                              console.error('Error:', error);
+                              alert('There was an error processing your payment. Please try again.');
+                            }
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => navigate('/login')}
+                        className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Login to Purchase
+                      </button>
+                    )}
+                    <p className="mt-6 text-xs leading-5 text-gray-600">
+                      Secure payment processing. Instant access after purchase.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
+          )}
+
+          {/* Mediterranean Plan Highlight Section */}
+          {!userPlan?.hasAllPlans && (
+            <div className="mx-auto mt-16 max-w-2xl sm:text-center">
+              <h3 className="text-2xl font-bold tracking-tight text-gray-900">New: 7-Day Mediterranean Plan</h3>
+              <p className="mt-4 text-lg text-gray-600">
+                Experience the health benefits of the Mediterranean diet with our carefully curated 7-day meal plan.
+              </p>
+              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="rounded-lg bg-white p-6 shadow">
+                  <h4 className="font-semibold text-gray-900">Healthy Breakfast Options</h4>
+                  <p className="mt-2 text-gray-600">Start your day with nutritious Mediterranean-inspired breakfasts</p>
+                </div>
+                <div className="rounded-lg bg-white p-6 shadow">
+                  <h4 className="font-semibold text-gray-900">Fresh & Light Lunches</h4>
+                  <p className="mt-2 text-gray-600">Enjoy balanced lunches packed with vegetables and lean proteins</p>
+                </div>
+                <div className="rounded-lg bg-white p-6 shadow">
+                  <h4 className="font-semibold text-gray-900">Flavorful Dinners</h4>
+                  <p className="mt-2 text-gray-600">End your day with delicious Mediterranean dinner recipes</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Success Message */}
+          {showSuccessMessage && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg p-8 max-w-md w-full text-center">
+                <div className="mb-4">
+                  <CheckIcon className="w-16 h-16 text-emerald-500 mx-auto" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank You for Your Purchase!</h3>
+                <p className="text-gray-600 mb-6">You now have access to all meal plans. Start your journey to a healthier lifestyle today!</p>
+                <button
+                  onClick={() => {
+                    setShowSuccessMessage(false);
+                    navigate('/dashboard');
+                  }}
+                  className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+                >
+                  Go to Dashboard
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Success Toast */}
+          {showSuccessToast && (
+            <div className="fixed bottom-4 right-4 bg-indigo-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in">
+              Payment successful! You now have access to all meal plans.
+            </div>
+          )}
+
+          {/* FAQ Section */}
+          <div className="mx-auto mt-16 max-w-2xl sm:text-center">
+            <h3 className="text-2xl font-bold tracking-tight text-gray-900">Frequently Asked Questions</h3>
+            <dl className="mt-8 space-y-6 divide-y divide-gray-300/10">
+              <div className="pt-6">
+                <dt className="text-base font-semibold leading-7 text-gray-900">
+                  What's included in the Mediterranean plan?
+                </dt>
+                <dd className="mt-2 text-base leading-7 text-gray-600">
+                  The Mediterranean plan includes 7 days of complete meal plans with breakfast, lunch, dinner, and snacks. Each recipe comes with detailed instructions, ingredient lists, and nutritional information.
+                </dd>
+              </div>
+              <div className="pt-6">
+                <dt className="text-base font-semibold leading-7 text-gray-900">
+                  How do I access the meal plans?
+                </dt>
+                <dd className="mt-2 text-base leading-7 text-gray-600">
+                  After purchase, you'll get instant access to all meal plans through your dashboard. You can view them online or download them as PDFs.
+                </dd>
+              </div>
+              <div className="pt-6">
+                <dt className="text-base font-semibold leading-7 text-gray-900">
+                  Is the Mediterranean plan included in the price?
+                </dt>
+                <dd className="mt-2 text-base leading-7 text-gray-600">
+                  Yes! The 7-day Mediterranean plan is included in your $29.99 purchase, along with the 12-week plan and 22-day plant-based plan.
+                </dd>
+              </div>
+            </dl>
           </div>
-        )}
+        </div>
       </div>
     </PayPalScriptProvider>
   );
-};
+}

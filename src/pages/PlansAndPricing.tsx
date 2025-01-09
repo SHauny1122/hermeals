@@ -29,6 +29,8 @@ const features = [
   'Recipe Variations',
   'Mobile-Friendly Access',
   'Print-Ready Recipes',
+  '30-day personalized fitness calendar with no-equipment workouts',
+  'Beginner, intermediate, and advanced workout options',
 ];
 
 export default function PlansAndPricing() {
@@ -133,17 +135,61 @@ export default function PlansAndPricing() {
                   <h4 className="flex-none text-sm font-semibold leading-6 text-indigo-600">What's included</h4>
                   <div className="h-px flex-auto bg-gray-100" />
                 </div>
-                <ul
-                  role="list"
-                  className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
-                >
-                  {features.map((feature) => (
-                    <li key={feature} className="flex gap-x-3">
-                      <CheckIcon className="h-6 w-5 flex-none text-indigo-600" aria-hidden="true" />
-                      {feature}
+                <div className="mt-8">
+                  <h3 className="text-lg font-medium text-gray-900">What's included:</h3>
+                  <ul className="mt-4 space-y-4">
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0">
+                        <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <p className="ml-3 text-base text-gray-700">
+                        Personalized meal plans tailored to your preferences
+                      </p>
                     </li>
-                  ))}
-                </ul>
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0">
+                        <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <p className="ml-3 text-base text-gray-700">
+                        Access to our exclusive smoothie recipes collection
+                      </p>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0">
+                        <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <p className="ml-3 text-base text-gray-700">
+                        30-day personalized fitness calendar with no-equipment workouts
+                      </p>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0">
+                        <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <p className="ml-3 text-base text-gray-700">
+                        Beginner, intermediate, and advanced workout options
+                      </p>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0">
+                        <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <p className="ml-3 text-base text-gray-700">
+                        Weekly shopping lists and meal prep guides
+                      </p>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
                 <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">

@@ -496,6 +496,98 @@ const Home = () => {
         </div>
       </motion.div>
 
+      {/* Testimonials Section */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-emerald-50/30 to-white" />
+        <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-emerald-100/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 translate-x-1/3 translate-y-1/2 w-96 h-96 rounded-full bg-emerald-100/30 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-xl text-center mb-16">
+            <h2 className="text-lg font-semibold leading-8 tracking-tight text-emerald-600">
+              Testimonials
+            </h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Hear from our happy members
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {/* Testimonial 1 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative rounded-2xl bg-white/80 backdrop-blur-sm p-8 shadow-xl ring-1 ring-gray-900/5"
+            >
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-emerald-100/30 rounded-full blur-2xl" />
+              <blockquote>
+                <p className="text-base text-gray-900">
+                  "The meal plans are amazing, but what really surprised me was the fitness calendar! It's perfect for busy days when I can't make it to the gym. Love how everything works together."
+                </p>
+                <div className="mt-6 flex items-center gap-x-4">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
+                    <span className="font-semibold text-white">SJ</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Sarah Johnson</div>
+                    <div className="text-gray-600">Working Mom, Age 34</div>
+                  </div>
+                </div>
+              </blockquote>
+            </motion.div>
+
+            {/* Testimonial 2 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative rounded-2xl bg-white/80 backdrop-blur-sm p-8 shadow-xl ring-1 ring-gray-900/5"
+            >
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-emerald-100/30 rounded-full blur-2xl" />
+              <blockquote>
+                <p className="text-base text-gray-900">
+                  "I've tried other meal planning services, but HerMeal really understands what women need. The recipes are delicious, and I love how I can customize everything to my preferences."
+                </p>
+                <div className="mt-6 flex items-center gap-x-4">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
+                    <span className="font-semibold text-white">EM</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Emily Martinez</div>
+                    <div className="text-gray-600">Fitness Enthusiast, Age 28</div>
+                  </div>
+                </div>
+              </blockquote>
+            </motion.div>
+
+            {/* Testimonial 3 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="relative rounded-2xl bg-white/80 backdrop-blur-sm p-8 shadow-xl ring-1 ring-gray-900/5"
+            >
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-emerald-100/30 rounded-full blur-2xl" />
+              <blockquote>
+                <p className="text-base text-gray-900">
+                  "The smoothie recipes are perfect, and whenever I have questions, the customer support team responds within minutes! They're so helpful and friendly. It feels like having a personal nutrition coach."
+                </p>
+                <div className="mt-6 flex items-center gap-x-4">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
+                    <span className="font-semibold text-white">LT</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Lisa Thompson</div>
+                    <div className="text-gray-600">Teacher, Age 31</div>
+                  </div>
+                </div>
+              </blockquote>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <FAQ />
     </div>

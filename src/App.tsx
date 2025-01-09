@@ -13,6 +13,8 @@ import Smoothies from './pages/Smoothies'
 import ProtectedSmoothies from './components/ProtectedSmoothies';
 import { AuthProvider } from './context/AuthContext'
 import Footer from './components/Footer'
+import Fitness from './pages/Fitness'
+import ProtectedFitness from './components/ProtectedFitness'
 
 function App() {
   return (
@@ -26,6 +28,11 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/plans" element={<PlansAndPricing />} />
+              <Route path="/fitness" element={
+                <ProtectedFitness>
+                  <Fitness />
+                </ProtectedFitness>
+              } />
               <Route path="/smoothies" element={
                 <ProtectedSmoothies>
                   <Smoothies />

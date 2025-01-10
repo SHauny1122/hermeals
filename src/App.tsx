@@ -17,6 +17,7 @@ import Footer from './components/Footer'
 import Fitness from './pages/Fitness'
 import ProtectedFitness from './components/ProtectedFitness'
 import RecipeFinder from './features/recipeFinder/RecipeFinder';
+import ProtectedRecipeFinder from './features/recipeFinder/components/ProtectedRecipeFinder';
 
 function App() {
   return (
@@ -58,7 +59,11 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
-              <Route path="/recipe-finder" element={<RecipeFinder />} />
+              <Route path="/recipe-finder" element={
+                <ProtectedRecipeFinder>
+                  <RecipeFinder />
+                </ProtectedRecipeFinder>
+              } />
               {/* Redirect /pricing to /meal-plans */}
               <Route path="/pricing" element={<Navigate to="/meal-plans" replace />} />
               {/* Catch all route - redirect to home */}

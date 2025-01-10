@@ -5,13 +5,48 @@ import { useRef, useState, useEffect } from 'react';
 import FAQ from '../components/FAQ';
 import { contactService } from '../services/contactService';
 import { useAuth } from '../context/AuthContext';
-import { mealPlanService } from '../services/mealPlanService';
 
 const Home = () => {
   const ref = useRef(null);
   const { user } = useAuth();
   const [hasPlan, setHasPlan] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
+  // Add login prompt modal
+  const LoginPrompt = () => (
+    <div className={`fixed inset-0 bg-black bg-opacity-50 ${showLoginPrompt ? 'flex' : 'hidden'} items-center justify-center z-50`}>
+      <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+        <h3 className="text-xl font-semibold mb-4">Login Required</h3>
+        <p className="text-gray-600 mb-4">Please log in to access this feature.</p>
+        <div className="flex justify-end space-x-3">
+          <button
+            onClick={() => setShowLoginPrompt(false)}
+            className="px-4 py-2 text-gray-600 hover:text-gray-800"
+          >
+            Cancel
+          </button>
+          <Link
+            to="/login"
+            className="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600"
+            onClick={() => setShowLoginPrompt(false)}
+          >
+            Log In
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Check user plan on mount
+  useEffect(() => {
+    if (user) {
+      // Here you would typically check the user's plan status
+      // For now, we'll just set it to true if user is logged in
+      setHasPlan(true);
+    } else {
+      setHasPlan(false);
+    }
+  }, [user]);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -45,24 +80,6 @@ const Home = () => {
       setIsSubmitting(false);
     }
   };
-
-  useEffect(() => {
-    const checkUserPlan = async () => {
-      if (user) {
-        try {
-          const userPlan = await mealPlanService.getUserMealPlan(user.uid);
-          setHasPlan(!!userPlan);
-        } catch (error) {
-          console.error('Error checking user plan:', error);
-          setHasPlan(false);
-        }
-      } else {
-        setHasPlan(false);
-      }
-    };
-    
-    checkUserPlan();
-  }, [user]);
 
   return (
     <div className="min-h-screen flex flex-col" ref={ref}>
@@ -186,65 +203,65 @@ const Home = () => {
               {/* Dropdown Contact Options - Only show if user has plan */}
               {user && hasPlan ? (
                 <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  <div className="p-4">
-                    <div className="space-y-4">
-                      {/* Email Option */}
-                      <a 
-                        href="mailto:support@hermeal.com"
-                        className="flex items-center space-x-3 text-gray-700 hover:text-indigo-600 transition-colors"
+                <div className="p-4">
+                  <div className="space-y-4">
+                    {/* Email Option */}
+                    <a 
+                      href="mailto:support@hermeal.com"
+                      className="flex items-center space-x-3 text-gray-700 hover:text-indigo-600 transition-colors"
+                    >
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        className="h-5 w-5" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
                       >
-                        <svg 
-                          xmlns="http://www.w3.org/2000/svg" 
-                          className="h-5 w-5" 
-                          fill="none" 
-                          viewBox="0 0 24 24" 
-                          stroke="currentColor"
-                        >
-                          <path 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round" 
-                            strokeWidth={2} 
-                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
-                          />
-                        </svg>
-                        <span className="text-sm">Email Support</span>
-                      </a>
-                      
-                      {/* Quick Contact Form */}
-                      <form className="space-y-2" onSubmit={handleContactSubmit}>
-                        <input
-                          type="email"
-                          placeholder="Your Email"
-                          value={contactEmail}
-                          onChange={(e) => setContactEmail(e.target.value)}
-                          required
-                          className="w-full px-3 py-1 text-sm border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
                         />
-                        <textarea
-                          placeholder="Your Message"
-                          value={contactMessage}
-                          onChange={(e) => setContactMessage(e.target.value)}
-                          required
-                          rows={3}
-                          className="w-full px-3 py-1 text-sm border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                        <button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className={`w-full px-4 py-1 rounded text-sm font-medium transition-colors ${
-                            isSubmitting 
-                              ? 'bg-gray-400 cursor-not-allowed' 
-                              : submitSuccess 
-                                ? 'bg-green-600 text-white'
-                                : 'bg-indigo-600 text-white hover:bg-indigo-700'
-                          }`}
-                        >
-                          {isSubmitting ? 'Sending...' : submitSuccess ? 'Message Sent!' : 'Send Message'}
-                        </button>
-                      </form>
-                    </div>
+                      </svg>
+                      <span className="text-sm">Email Support</span>
+                    </a>
+                    
+                    {/* Quick Contact Form */}
+                    <form className="space-y-2" onSubmit={handleContactSubmit}>
+                      <input
+                        type="email"
+                        placeholder="Your Email"
+                        value={contactEmail}
+                        onChange={(e) => setContactEmail(e.target.value)}
+                        required
+                        className="w-full px-3 py-1 text-sm border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                      <textarea
+                        placeholder="Your Message"
+                        value={contactMessage}
+                        onChange={(e) => setContactMessage(e.target.value)}
+                        required
+                        rows={3}
+                        className="w-full px-3 py-1 text-sm border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className={`w-full px-4 py-1 rounded text-sm font-medium transition-colors ${
+                          isSubmitting 
+                            ? 'bg-gray-400 cursor-not-allowed' 
+                            : submitSuccess 
+                              ? 'bg-green-600 text-white'
+                              : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                        }`}
+                      >
+                        {isSubmitting ? 'Sending...' : submitSuccess ? 'Message Sent!' : 'Send Message'}
+                      </button>
+                    </form>
                   </div>
                 </div>
+              </div>
               ) : (
                 /* Show upgrade prompt for non-plan users */
                 <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
@@ -590,6 +607,9 @@ const Home = () => {
 
       {/* FAQ Section */}
       <FAQ />
+
+      {/* Login Prompt */}
+      <LoginPrompt />
     </div>
   );
 };

@@ -1,10 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useState } from 'react';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = async () => {
@@ -58,6 +59,16 @@ const Navbar = () => {
             </Link>
             <Link to="/plans" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
               Plans & Pricing
+            </Link>
+            <Link
+              to="/recipe-finder"
+              className={`${
+                location.pathname === '/recipe-finder'
+                  ? 'border-emerald-500 text-gray-900'
+                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+              } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+            >
+              Recipe Finder
             </Link>
             {user ? (
               <>
@@ -123,6 +134,13 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Plans & Pricing
+            </Link>
+            <Link 
+              to="/recipe-finder" 
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Recipe Finder
             </Link>
             {user ? (
               <>

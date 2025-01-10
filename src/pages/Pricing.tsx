@@ -1,6 +1,5 @@
-import React from 'react';
-import { CheckIcon } from '@heroicons/react/20/solid';
 import { useNavigate } from 'react-router-dom';
+import { CheckIcon } from '@heroicons/react/20/solid';
 
 const features = [
   '12-Week Comprehensive Meal Plan',
@@ -13,7 +12,7 @@ const features = [
   'Print-Ready Recipes',
 ];
 
-export default function Pricing() {
+const Pricing = () => {
   const navigate = useNavigate();
 
   return (
@@ -116,4 +115,6 @@ export default function Pricing() {
       </div>
     </div>
   );
-}
+};
+
+export default Pricing;

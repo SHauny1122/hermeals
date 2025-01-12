@@ -37,7 +37,6 @@ export default function PlansAndPricing() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [userPlan, setUserPlan] = useState<UserMealPlan | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -73,13 +72,13 @@ export default function PlansAndPricing() {
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              {userPlan?.hasAllPlans ? 'Your Meal Plans' : 'Simple, Affordable Pricing'}
+            <h2 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent sm:text-5xl">
+              {userPlan?.hasAllPlans ? 'Your Meal Plans' : 'Transform Your Life With Our Meal Plans'}
             </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
+            <p className="mt-6 text-xl leading-8 text-gray-600 font-light">
               {userPlan?.hasAllPlans 
                 ? 'Access your purchased meal plans below'
-                : 'Get access to our complete collection of healthy meal plans, including our new Mediterranean diet plan.'
+                : 'Start your journey to better health with our expertly crafted meal plans and fitness guides.'
               }
             </p>
           </div>
@@ -138,53 +137,53 @@ export default function PlansAndPricing() {
                 <div className="mt-8">
                   <h3 className="text-lg font-medium text-gray-900">What's included:</h3>
                   <ul className="mt-4 space-y-4">
-                    <li className="flex items-start">
+                    <li className="flex items-start transform hover:scale-105 transition-transform duration-200">
                       <div className="flex-shrink-0">
                         <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
-                      <p className="ml-3 text-base text-gray-700">
+                      <p className="ml-3 text-base text-gray-700 font-medium">
                         Personalized meal plans tailored to your preferences
                       </p>
                     </li>
-                    <li className="flex items-start">
+                    <li className="flex items-start transform hover:scale-105 transition-transform duration-200">
                       <div className="flex-shrink-0">
                         <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
-                      <p className="ml-3 text-base text-gray-700">
+                      <p className="ml-3 text-base text-gray-700 font-medium">
                         Access to our exclusive smoothie recipes collection
                       </p>
                     </li>
-                    <li className="flex items-start">
+                    <li className="flex items-start transform hover:scale-105 transition-transform duration-200">
                       <div className="flex-shrink-0">
                         <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
-                      <p className="ml-3 text-base text-gray-700">
+                      <p className="ml-3 text-base text-gray-700 font-medium">
                         30-day personalized fitness calendar with no-equipment workouts
                       </p>
                     </li>
-                    <li className="flex items-start">
+                    <li className="flex items-start transform hover:scale-105 transition-transform duration-200">
                       <div className="flex-shrink-0">
                         <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
-                      <p className="ml-3 text-base text-gray-700">
+                      <p className="ml-3 text-base text-gray-700 font-medium">
                         Beginner, intermediate, and advanced workout options
                       </p>
                     </li>
-                    <li className="flex items-start">
+                    <li className="flex items-start transform hover:scale-105 transition-transform duration-200">
                       <div className="flex-shrink-0">
                         <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
-                      <p className="ml-3 text-base text-gray-700">
+                      <p className="ml-3 text-base text-gray-700 font-medium">
                         Weekly shopping lists and meal prep guides
                       </p>
                     </li>
@@ -192,11 +191,11 @@ export default function PlansAndPricing() {
                 </div>
               </div>
               <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-                <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+                <div className="rounded-2xl bg-gradient-to-b from-white to-indigo-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16 shadow-lg hover:shadow-xl transition-all duration-300">
                   <div className="mx-auto max-w-xs px-8">
-                    <p className="text-base font-semibold text-gray-600">One-time payment</p>
+                    <p className="text-base font-semibold text-indigo-600">One-time payment</p>
                     <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                      <span className="text-5xl font-bold tracking-tight text-gray-900">$29.99</span>
+                      <span className="text-6xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">$29.99</span>
                       <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">USD</span>
                     </p>
                     {user ? (
@@ -205,43 +204,35 @@ export default function PlansAndPricing() {
                           style={{ layout: "vertical" }}
                           createOrder={(data, actions) => {
                             return actions.order.create({
+                              intent: "CAPTURE",
                               purchase_units: [{
                                 amount: {
-                                  value: "29.99"
+                                  value: "29.99",
+                                  currency_code: "USD"
                                 }
                               }]
                             });
                           }}
                           onApprove={async (data, actions) => {
-                            try {
-                              if (!user) {
-                                console.error('No user found');
-                                return;
+                            if (actions.order) {
+                              const order = await actions.order.capture();
+                              if (order.status === 'COMPLETED') {
+                                try {
+                                  // Assign all plans to the user
+                                  await mealPlanService.assignMealPlan(user.uid, '12-week');
+                                  await mealPlanService.assignMealPlan(user.uid, '22-day');
+                                  await mealPlanService.assignMealPlan(user.uid, 'mediterranean');
+                                  
+                                  setShowSuccessMessage(true);
+                                  setTimeout(() => {
+                                    setShowSuccessMessage(false);
+                                    navigate('/dashboard');
+                                  }, 2000);
+                                } catch (error) {
+                                  console.error('Error activating plans:', error);
+                                  alert('There was an error activating your plans. Please contact support.');
+                                }
                               }
-
-                              if (actions.order) {
-                                const captureResult = await actions.order.capture();
-                                console.log('Payment captured successfully:', captureResult);
-                                
-                                // Assign both plans to the user
-                                await mealPlanService.assignMealPlan(user.uid, '12-week');
-                                await mealPlanService.assignMealPlan(user.uid, '22-day');
-                                
-                                // Show success message and toast
-                                setShowSuccessMessage(true);
-                                setShowSuccessToast(true);
-                                
-                                // Hide toast after 5 seconds
-                                setTimeout(() => {
-                                  setShowSuccessToast(false);
-                                }, 5000);
-                                
-                                console.log('Both plans assigned successfully');
-                                navigate('/dashboard');
-                              }
-                            } catch (error) {
-                              console.error('Error:', error);
-                              alert('There was an error processing your payment. Please try again.');
                             }
                           }}
                         />
@@ -287,6 +278,57 @@ export default function PlansAndPricing() {
             </div>
           )}
 
+          {/* FAQ Section with enhanced styling */}
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-24">
+            <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
+              <h2 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent sm:text-4xl mb-12 text-center">
+                Frequently Asked Questions
+              </h2>
+              <dl className="mt-10 space-y-8 divide-y divide-gray-900/10">
+                <div className="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 group hover:bg-indigo-50/50 p-4 rounded-lg transition-all duration-300">
+                  <dt className="text-lg font-semibold leading-7 text-gray-900 lg:col-span-5">
+                    New: 7-Day Mediterranean Plan
+                  </dt>
+                  <dd className="mt-4 lg:col-span-7 lg:mt-0">
+                    <p className="text-base leading-7 text-gray-600">
+                      Experience the vibrant flavors and health benefits of the Mediterranean diet with our newest meal plan. Perfect for those seeking a balanced, heart-healthy approach to eating.
+                    </p>
+                  </dd>
+                </div>
+                <div className="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 group hover:bg-indigo-50/50 p-4 rounded-lg transition-all duration-300">
+                  <dt className="text-lg font-semibold leading-7 text-gray-900 lg:col-span-5">
+                    When do I get access?
+                  </dt>
+                  <dd className="mt-4 lg:col-span-7 lg:mt-0">
+                    <p className="text-base leading-7 text-gray-600">
+                      Instant access! As soon as your payment is processed, you'll have immediate access to all meal plans and features through your dashboard.
+                    </p>
+                  </dd>
+                </div>
+                <div className="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 group hover:bg-indigo-50/50 p-4 rounded-lg transition-all duration-300">
+                  <dt className="text-lg font-semibold leading-7 text-gray-900 lg:col-span-5">
+                    Is the Mediterranean plan included?
+                  </dt>
+                  <dd className="mt-4 lg:col-span-7 lg:mt-0">
+                    <p className="text-base leading-7 text-gray-600">
+                      Yes! The 7-day Mediterranean plan is included in your $29.99 purchase, along with the 12-week plan and 22-day plan.
+                    </p>
+                  </dd>
+                </div>
+                <div className="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 group hover:bg-indigo-50/50 p-4 rounded-lg transition-all duration-300">
+                  <dt className="text-lg font-semibold leading-7 text-gray-900 lg:col-span-5">
+                    Can I switch between plans?
+                  </dt>
+                  <dd className="mt-4 lg:col-span-7 lg:mt-0">
+                    <p className="text-base leading-7 text-gray-600">
+                      Absolutely! You have unlimited access to all plans and can switch between them anytime. Mix and match to find what works best for you.
+                    </p>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
           {/* Success Message */}
           {showSuccessMessage && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -308,44 +350,6 @@ export default function PlansAndPricing() {
               </div>
             </div>
           )}
-
-          {/* Success Toast */}
-          {showSuccessToast && (
-            <div className="fixed bottom-4 right-4 bg-indigo-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in">
-              Payment successful! You now have access to all meal plans.
-            </div>
-          )}
-
-          {/* FAQ Section */}
-          <div className="mx-auto mt-16 max-w-2xl sm:text-center">
-            <h3 className="text-2xl font-bold tracking-tight text-gray-900">Frequently Asked Questions</h3>
-            <dl className="mt-8 space-y-6 divide-y divide-gray-300/10">
-              <div className="pt-6">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  What's included in the Mediterranean plan?
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-600">
-                  The Mediterranean plan includes 7 days of complete meal plans with breakfast, lunch, dinner, and snacks. Each recipe comes with detailed instructions, ingredient lists, and nutritional information.
-                </dd>
-              </div>
-              <div className="pt-6">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  How do I access the meal plans?
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-600">
-                  After purchase, you'll get instant access to all meal plans through your dashboard. You can view them online or download them as PDFs.
-                </dd>
-              </div>
-              <div className="pt-6">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  Is the Mediterranean plan included in the price?
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-600">
-                  Yes! The 7-day Mediterranean plan is included in your $29.99 purchase, along with the 12-week plan and 22-day plant-based plan.
-                </dd>
-              </div>
-            </dl>
-          </div>
         </div>
       </div>
     </PayPalScriptProvider>

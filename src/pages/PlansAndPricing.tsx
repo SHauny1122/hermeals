@@ -5,6 +5,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useAuth } from '../context/AuthContext';
 import { mealPlanService } from '../services/mealPlanService';
 import { UserMealPlan } from '../types/mealPlans';
+import { Promotion } from '../types/promotion';
 
 // Determine if we're in development mode
 const isDevelopment = import.meta.env.MODE === 'development';
@@ -39,24 +40,24 @@ export default function PlansAndPricing() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [userPlan, setUserPlan] = useState<UserMealPlan | null>(null);
   const [loading, setLoading] = useState(true);
+  const [promotion, setPromotion] = useState<Promotion | null>(null);
 
   useEffect(() => {
-    // Fetch user's current plan if logged in
-    if (user) {
-      const fetchUserPlan = async () => {
-        try {
+    const fetchData = async () => {
+      try {
+        if (user) {
           const plan = await mealPlanService.getUserMealPlan(user.uid);
           setUserPlan(plan);
-        } catch (error) {
-          console.error('Error fetching user plan:', error);
-        } finally {
-          setLoading(false);
         }
-      };
-      fetchUserPlan();
-    } else {
-      setLoading(false);
-    }
+        const activePromo = await mealPlanService.getActivePromotion();
+        setPromotion(activePromo);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, [user]);
 
   if (loading) {
@@ -194,10 +195,43 @@ export default function PlansAndPricing() {
                 <div className="rounded-2xl bg-gradient-to-b from-white to-indigo-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16 shadow-lg hover:shadow-xl transition-all duration-300">
                   <div className="mx-auto max-w-xs px-8">
                     <p className="text-base font-semibold text-indigo-600">One-time payment</p>
-                    <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                      <span className="text-6xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">$29.99</span>
-                      <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">USD</span>
-                    </p>
+                    <div className="mb-6 text-center relative">
+                      {promotion && promotion.active ? (
+                        <>
+                          {/* New Year Special Badge */}
+                          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg animate-pulse">
+                            New Year Special! 🎉
+                          </div>
+                          
+                          <p className="text-xl font-semibold text-gray-400 line-through mt-6">
+                            ${promotion.originalPrice} USD
+                          </p>
+                          
+                          <div className="mt-2 space-y-2">
+                            <div className="flex items-center justify-center space-x-2">
+                              <span className="text-4xl font-bold text-indigo-600 animate-bounce">
+                                ${promotion.promoPrice}
+                              </span>
+                              <span className="text-xl text-gray-500">USD</span>
+                            </div>
+                            
+                            {/* Savings Highlight */}
+                            <div className="bg-green-50 text-green-700 px-4 py-2 rounded-lg inline-block font-medium">
+                              Save ${(promotion.originalPrice - promotion.promoPrice).toFixed(2)}!
+                            </div>
+                            
+                            {/* Urgency Message */}
+                            <p className="text-sm font-medium text-indigo-600 mt-2">
+                              🔥 Limited Time New Year Offer! Start Your Health Journey Today
+                            </p>
+                          </div>
+                        </>
+                      ) : (
+                        <p className="text-3xl font-bold text-gray-900">
+                          $29.99 <span className="text-xl text-gray-500">USD</span>
+                        </p>
+                      )}
+                    </div>
                     {user ? (
                       <div className="mt-10">
                         <PayPalButtons
@@ -207,7 +241,9 @@ export default function PlansAndPricing() {
                               intent: "CAPTURE",
                               purchase_units: [{
                                 amount: {
-                                  value: "29.99",
+                                  value: promotion && promotion.active 
+                                    ? promotion.promoPrice.toString()
+                                    : "29.99",
                                   currency_code: "USD"
                                 }
                               }]

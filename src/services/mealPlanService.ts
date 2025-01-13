@@ -1,9 +1,15 @@
 import { 
   doc, 
   getDoc, 
-  setDoc
+  setDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+  limit
 } from 'firebase/firestore';
 import { MealPlan, DayMeals, UserMealPlan } from '../types/mealPlans';
+import { Promotion } from '../types/promotion';
 import { db } from '../config/firebase';
 import { twentyTwoDayPlan } from '../data/twentyTwoDayPlan';
 import { weeklyPlans } from '../data/weeklyPlans';
@@ -18,6 +24,7 @@ export interface MealPlanService {
   getUserMealPlan: (userId: string) => Promise<UserMealPlan | null>;
   assignMealPlan: (userId: string, planId: string) => Promise<void>;
   updateProgress: (userId: string, currentDay: number) => Promise<void>;
+  getActivePromotion: () => Promise<Promotion | null>;
 }
 
 class MealPlanServiceImpl implements MealPlanService {
@@ -220,6 +227,22 @@ class MealPlanServiceImpl implements MealPlanService {
       currentDay,
       completed: currentDay >= maxDays
     });
+  }
+
+  async getActivePromotion(): Promise<Promotion | null> {
+    try {
+      const promoRef = doc(db, 'promotions', 'newYearSpecial');
+      const promoDoc = await getDoc(promoRef);
+      
+      if (promoDoc.exists() && promoDoc.data().active) {
+        return promoDoc.data() as Promotion;
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('Error fetching promotion:', error);
+      return null;
+    }
   }
 }
 

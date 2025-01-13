@@ -4,10 +4,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged,
-  AuthError
+  onAuthStateChanged
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
+import { db } from '../config/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 interface AuthContextType {
   user: User | null;
@@ -44,6 +45,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signup = async (email: string, password: string) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      
+      // Send welcome email
+      if (userCredential.user) {
+        try {
+          const response = await fetch('/api/send-welcome-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }),
+          });
+
+          if (!response.ok) {
+            console.error('Failed to send welcome email');
+          } else {
+            console.log('Welcome email sent successfully');
+          }
+        } catch (error) {
+          console.error('Error sending welcome email:', error);
+        }
+      }
+      
       setUser(userCredential.user);
     } catch (error) {
       console.error('Signup error:', error);

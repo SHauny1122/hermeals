@@ -22,9 +22,37 @@ export interface MealDetail extends Recipe {
 }
 
 export interface DayMeals {
-  breakfast: Recipe;
-  lunch: Recipe;
-  dinner: Recipe;
+  day: number;
+  breakfast: {
+    name: string;
+    recipe: string;
+    ingredients?: { name: string; amount: string; unit?: string; notes?: string }[];
+    instructions?: string[];
+    prepTime?: string;
+    servings?: number;
+    gremolata?: string;
+    servingNotes?: string;
+  };
+  lunch: {
+    name: string;
+    recipe: string;
+    ingredients?: { name: string; amount: string; unit?: string; notes?: string }[];
+    instructions?: string[];
+    prepTime?: string;
+    servings?: number;
+    gremolata?: string;
+    servingNotes?: string;
+  };
+  dinner: {
+    name: string;
+    recipe: string;
+    ingredients?: { name: string; amount: string; unit?: string; notes?: string }[];
+    instructions?: string[];
+    prepTime?: string;
+    servings?: number;
+    gremolata?: string;
+    servingNotes?: string;
+  };
 }
 
 export interface MealPlan {

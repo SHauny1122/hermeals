@@ -1,16 +1,50 @@
-import React, { useState } from 'react';
-import { DailyWorkout, FitnessLevel, createWorkoutPlan } from '../data/workouts';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../../context/AuthContext';
+import { fitnessService } from '../../../services/fitnessService';
+import { DailyWorkout, FitnessLevel, Exercise } from '../../../types/fitness';
+import { createWorkoutPlan } from '../data/workouts';
 
-const FitnessCalendar = () => {
+const FitnessCalendar: React.FC = () => {
+  const { user } = useAuth();
   const [selectedDay, setSelectedDay] = useState<DailyWorkout | null>(null);
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth] = useState(new Date());
   const [fitnessLevel, setFitnessLevel] = useState<FitnessLevel>('beginner');
-  const [workoutPlan, setWorkoutPlan] = useState(createWorkoutPlan('beginner'));
+  const [workoutPlan, setWorkoutPlan] = useState<DailyWorkout[]>(createWorkoutPlan('beginner'));
+  const [loading, setLoading] = useState(true);
 
-  const handleLevelChange = (level: FitnessLevel) => {
+  useEffect(() => {
+    const fetchUserFitnessPlan = async () => {
+      if (user) {
+        try {
+          const plan = await fitnessService.getUserFitnessPlan(user.uid);
+          if (plan) {
+            setFitnessLevel(plan.fitnessLevel);
+            setWorkoutPlan(createWorkoutPlan(plan.fitnessLevel));
+          }
+        } catch (error) {
+          console.error('Error fetching fitness plan:', error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchUserFitnessPlan();
+  }, [user]);
+
+  const handleLevelChange = async (level: FitnessLevel) => {
+    if (!user) return;
+
     setFitnessLevel(level);
     setWorkoutPlan(createWorkoutPlan(level));
     setSelectedDay(null);
+
+    try {
+      await fitnessService.setUserFitnessLevel(user.uid, level);
+    } catch (error) {
+      console.error('Error saving fitness level:', error);
+      // Could add error notification here
+    }
   };
 
   const getDaysInMonth = (date: Date) => {

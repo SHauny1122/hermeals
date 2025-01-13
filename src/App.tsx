@@ -18,6 +18,7 @@ import Fitness from './pages/Fitness'
 import ProtectedFitness from './components/ProtectedFitness'
 import RecipeFinder from './features/recipeFinder/RecipeFinder';
 import ProtectedRecipeFinder from './features/recipeFinder/components/ProtectedRecipeFinder';
+import { Preview } from './features/preview/pages/Preview';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <main className="flex-grow bg-gray-50">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/preview" element={<Preview />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/plans" element={<PlansAndPricing />} />

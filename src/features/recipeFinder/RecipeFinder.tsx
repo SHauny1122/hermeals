@@ -223,7 +223,7 @@ const RecipeFinder: React.FC = () => {
                     <div className="space-y-2">
                       <p className="text-sm text-gray-600">
                         Uses {recipe.usedIngredientCount} of your ingredients
-                        {recipe.missedIngredientCount > 0 && 
+                        {recipe.missedIngredientCount !== undefined && recipe.missedIngredientCount > 0 && 
                           ` (needs ${recipe.missedIngredientCount} more)`}
                       </p>
                       {recipe.readyInMinutes && (

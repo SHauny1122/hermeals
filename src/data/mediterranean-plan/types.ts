@@ -4,14 +4,20 @@ export interface MediterraneanMeal {
   ingredients?: {
     name: string;
     amount: string;
-    unit: string;
+    unit?: string;
     notes?: string;
   }[];
   instructions?: string[];
-  servingNote?: string;
   prepTime?: string;
   cookTime?: string;
   servings?: number;
+  gremolata?: {
+    name: string;
+    amount: string;
+    unit: string;
+    notes: string;
+  }[];
+  servingNotes?: string;
 }
 
 export interface MediterraneanDayPlan {

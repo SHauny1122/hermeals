@@ -3,6 +3,8 @@ import { useAuth } from '../context/AuthContext';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { mealPlanService, PlanType } from '../services/mealPlanService';
 import { MealPlan, DayMeals, UserMealPlan } from '../types/mealPlans';
+import { fitnessService } from '../services/fitnessService';
+import { UserFitnessPlan } from '../types/fitness';
 import WeightTracker from '../components/WeightTracker';
 import { DashboardShoppingList } from '../components/DashboardShoppingList';
 
@@ -17,32 +19,38 @@ export default function Dashboard() {
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedMeal, setSelectedMeal] = useState<'breakfast' | 'lunch' | 'dinner' | null>(null);
-  const [activeTab, setActiveTab] = useState<'meals' | 'shopping' | 'weight'>('meals');
+  const [activeTab, setActiveTab] = useState<'meals' | 'shopping' | 'weight' | 'fitness'>('meals');
+  const [fitnessPlan, setFitnessPlan] = useState<UserFitnessPlan | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
-      const fetchUserPlan = async () => {
+      const fetchUserData = async () => {
         try {
-          const plan = await mealPlanService.getUserMealPlan(user.uid);
-          setUserPlan(plan);
+          const [mealPlanData, fitnessPlanData] = await Promise.all([
+            mealPlanService.getUserMealPlan(user.uid),
+            fitnessService.getUserFitnessPlan(user.uid)
+          ]);
           
-          if (plan?.hasAllPlans) {
+          setUserPlan(mealPlanData);
+          setFitnessPlan(fitnessPlanData);
+          
+          if (mealPlanData?.hasAllPlans) {
             // Load the requested plan type or default to the selected plan
-            const planToLoad = planType || plan.selectedPlan;
+            const planToLoad = planType || mealPlanData.selectedPlan;
             const loadedPlan = mealPlanService.getMealPlan(planToLoad);
             setMealPlan(loadedPlan);
             
             // Set initial selected day if not set
             if (selectedDay === null) {
-              setSelectedDay(plan.currentDay || 0);
+              setSelectedDay(mealPlanData.currentDay || 0);
             }
           }
         } catch (error) {
           console.error('Error fetching user plan:', error);
         }
       };
-      fetchUserPlan();
+      fetchUserData();
     } else {
       navigate('/login', { state: { from: '/dashboard' } });
     }
@@ -57,6 +65,29 @@ export default function Dashboard() {
     } catch (error) {
       console.error('Error updating progress:', error);
     }
+  };
+
+  const handleMealClick = (meal: keyof Omit<DayMeals, 'day'>) => {
+    setSelectedMeal(meal);
+  };
+
+  const renderIngredients = (ingredients?: { name: string; amount: string; unit?: string; notes?: string }[]) => {
+    if (!ingredients) return null;
+    return ingredients.map((ingredient, idx) => (
+      <li key={idx} className="text-gray-600">
+        {ingredient.amount} {ingredient.unit || ''} {ingredient.name}
+        {ingredient.notes && <span className="text-gray-500 ml-1">({ingredient.notes})</span>}
+      </li>
+    ));
+  };
+
+  const renderInstructions = (instructions?: string[]) => {
+    if (!instructions) return null;
+    return instructions.map((instruction, idx) => (
+      <li key={idx} className="text-gray-600 mb-2">
+        {instruction}
+      </li>
+    ));
   };
 
   if (!mealPlan && !viewParam) {
@@ -329,9 +360,7 @@ export default function Dashboard() {
                       <div className="space-y-2">
                         <h4 className="text-xl font-semibold text-emerald-800">Ingredients</h4>
                         <ul className="list-disc pl-5 space-y-1">
-                          {mealPlan.meals[selectedDay]?.[selectedMeal]?.ingredients.map((ingredient: { name: string }, idx: number) => (
-                            <li key={idx} className="text-gray-700">{ingredient.name}</li>
-                          ))}
+                          {renderIngredients(mealPlan.meals[selectedDay]?.[selectedMeal]?.ingredients)}
                         </ul>
                       </div>
                     )}
@@ -342,9 +371,7 @@ export default function Dashboard() {
                       <div className="space-y-2">
                         <h4 className="text-xl font-semibold text-emerald-800">Instructions</h4>
                         <ol className="list-decimal pl-5 space-y-2">
-                          {mealPlan.meals[selectedDay]?.[selectedMeal]?.instructions.map((instruction: string, idx: number) => (
-                            <li key={idx} className="text-gray-700">{instruction}</li>
-                          ))}
+                          {renderInstructions(mealPlan.meals[selectedDay]?.[selectedMeal]?.instructions)}
                         </ol>
                       </div>
                     )}
@@ -394,6 +421,16 @@ export default function Dashboard() {
           >
             Weight Tracker
           </button>
+          <button
+            onClick={() => setActiveTab('fitness')}
+            className={`flex-1 sm:flex-none px-6 py-3 text-base sm:text-sm font-medium ${
+              activeTab === 'fitness'
+                ? 'bg-emerald-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            Fitness
+          </button>
         </div>
       </div>
 
@@ -401,6 +438,31 @@ export default function Dashboard() {
         <DashboardShoppingList mealPlan={mealPlan} selectedDay={0} />
       ) : activeTab === 'weight' ? (
         <WeightTracker />
+      ) : activeTab === 'fitness' ? (
+        fitnessPlan && (
+          <div className="space-y-6">
+            <div className="bg-white shadow sm:rounded-lg">
+              <div className="px-4 py-5 sm:p-6">
+                <h3 className="text-lg font-medium leading-6 text-gray-900">
+                  Your Fitness Journey
+                </h3>
+                <div className="mt-2 max-w-xl text-sm text-gray-500">
+                  <p>Current fitness level: <span className="font-medium text-gray-900">{fitnessPlan.fitnessLevel}</span></p>
+                  <p className="mt-1">Day {fitnessPlan.currentDay} of 30</p>
+                </div>
+                <div className="mt-5">
+                  <button
+                    type="button"
+                    onClick={() => navigate('/fitness')}
+                    className="inline-flex items-center rounded-md border border-transparent bg-emerald-100 px-4 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-200"
+                  >
+                    View Workout Calendar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
       ) : (
         <div className="bg-white rounded-lg shadow-sm">
           <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
@@ -442,7 +504,7 @@ export default function Dashboard() {
                 {mealPlan && Object.entries(mealPlan.meals[selectedDay as number] || {}).map(([mealType, mealData]) => (
                   <div 
                     key={mealType}
-                    onClick={() => setSelectedMeal(mealType as keyof DayMeals)}
+                    onClick={() => handleMealClick(mealType as keyof Omit<DayMeals, 'day'>)}
                     className={`p-4 sm:p-6 rounded-lg border transition-all cursor-pointer ${
                       selectedMeal === mealType 
                       ? 'border-emerald-500 bg-emerald-50'
@@ -462,9 +524,7 @@ export default function Dashboard() {
                             <div className="mb-4">
                               <h5 className="font-medium text-gray-900 mb-2">Ingredients:</h5>
                               <ul className="list-disc pl-5">
-                                {mealData.ingredients.map((ingredient, idx) => (
-                                  <li key={idx} className="text-gray-700">{ingredient.name}</li>
-                                ))}
+                                {renderIngredients(mealData.ingredients)}
                               </ul>
                             </div>
                           )}
@@ -472,9 +532,7 @@ export default function Dashboard() {
                             <div>
                               <h5 className="font-medium text-gray-900 mb-2">Instructions:</h5>
                               <ol className="list-decimal pl-5">
-                                {mealData.instructions.map((instruction, idx) => (
-                                  <li key={idx} className="text-gray-700">{instruction}</li>
-                                ))}
+                                {renderInstructions(mealData.instructions)}
                               </ol>
                             </div>
                           )}

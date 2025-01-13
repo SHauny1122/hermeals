@@ -198,32 +198,36 @@ export default function PlansAndPricing() {
                     <div className="mb-6 text-center relative">
                       {promotion && promotion.active ? (
                         <>
-                          {/* New Year Special Badge */}
-                          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg animate-pulse">
+                          {/* New Year Special Badge - Adjusted for mobile */}
+                          <div className="absolute -top-6 sm:-top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 sm:px-4 sm:py-1 rounded-full text-sm font-semibold shadow-lg animate-pulse whitespace-nowrap">
                             New Year Special! 🎉
                           </div>
                           
-                          <p className="text-xl font-semibold text-gray-400 line-through mt-6">
-                            ${promotion.originalPrice} USD
-                          </p>
-                          
-                          <div className="mt-2 space-y-2">
-                            <div className="flex items-center justify-center space-x-2">
-                              <span className="text-4xl font-bold text-indigo-600 animate-bounce">
-                                ${promotion.promoPrice}
-                              </span>
-                              <span className="text-xl text-gray-500">USD</span>
-                            </div>
-                            
-                            {/* Savings Highlight */}
-                            <div className="bg-green-50 text-green-700 px-4 py-2 rounded-lg inline-block font-medium">
-                              Save ${(promotion.originalPrice - promotion.promoPrice).toFixed(2)}!
-                            </div>
-                            
-                            {/* Urgency Message */}
-                            <p className="text-sm font-medium text-indigo-600 mt-2">
-                              🔥 Limited Time New Year Offer! Start Your Health Journey Today
+                          {/* Price Container - More spacing on mobile */}
+                          <div className="pt-8 sm:pt-6">
+                            <p className="text-lg sm:text-xl font-semibold text-gray-400 line-through mb-4 sm:mb-2">
+                              ${promotion.originalPrice} USD
                             </p>
+                            
+                            <div className="space-y-4 sm:space-y-2">
+                              {/* Price Display */}
+                              <div className="flex items-center justify-center space-x-2">
+                                <span className="text-5xl sm:text-4xl font-bold text-indigo-600 animate-bounce">
+                                  ${promotion.promoPrice}
+                                </span>
+                                <span className="text-2xl sm:text-xl text-gray-500">USD</span>
+                              </div>
+                              
+                              {/* Savings Badge - Adjusted for mobile */}
+                              <div className="bg-green-50 text-green-700 px-6 py-3 sm:px-4 sm:py-2 rounded-lg inline-block font-medium text-base sm:text-sm">
+                                Save ${(promotion.originalPrice - promotion.promoPrice).toFixed(2)}!
+                              </div>
+                              
+                              {/* Urgency Message - Adjusted spacing */}
+                              <p className="text-base sm:text-sm font-medium text-indigo-600 mt-4 sm:mt-2 px-4">
+                                🔥 Limited Time New Year Offer!
+                              </p>
+                            </div>
                           </div>
                         </>
                       ) : (

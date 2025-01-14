@@ -111,7 +111,7 @@ const Home = () => {
                 Welcome to HerMeal
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl">
-                Your journey to healthier eating starts here. Discover personalized meal plans designed specifically for women.
+                Your journey to healthier eating starts here. We don't just show you <span className="font-semibold text-indigo-600 uppercase">IMAGES OF FOOD</span> - we provide scientifically planned meal plans that enhance your hormonal balance.
               </p>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -199,8 +199,7 @@ const Home = () => {
               >
                 Contact Support
               </motion.button>
-              
-              {/* Dropdown Contact Options - Only show if user has plan */}
+　　 　 　 　 {/* Dropdown Contact Options - Only show if user has plan */}
               {user && hasPlan ? (
                 <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="p-4">

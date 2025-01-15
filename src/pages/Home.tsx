@@ -188,7 +188,7 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              24/7 Support Available - We'll Respond Within 24 Hours
+              24/7 Support Available For All Members
             </motion.span>
             <div className="relative group">
               <motion.button
@@ -199,7 +199,7 @@ const Home = () => {
               >
                 Contact Support
               </motion.button>
-　　 　 　 　 {/* Dropdown Contact Options - Only show if user has plan */}
+　　 　 　 {/* Dropdown Contact Options - Only show if user has plan */}
               {user && hasPlan ? (
                 <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="p-4">

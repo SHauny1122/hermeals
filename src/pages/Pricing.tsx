@@ -51,7 +51,7 @@ const Pricing = () => {
               <div className="mx-auto max-w-xs px-8">
                 <p className="text-base font-semibold text-gray-600">One-time payment</p>
                 <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                  <span className="text-5xl font-bold tracking-tight text-gray-900">$29.99</span>
+                  <span className="text-5xl font-bold tracking-tight text-gray-900">$19.99</span>
                   <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">USD</span>
                 </p>
                 <button

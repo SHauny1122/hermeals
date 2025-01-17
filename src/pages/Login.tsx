@@ -106,7 +106,7 @@ const Login = () => {
 
               <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-100">
                 <p className="text-sm text-emerald-800">
-                  <span className="font-semibold">Included in all plans:</span> Get the Recipe Finder plus meal plans, smoothie recipes, and fitness guides for just $29.99
+                  <span className="font-semibold">Included in all plans:</span> Get the Recipe Finder plus meal plans, smoothie recipes, and fitness guides for just $19.99
                 </p>
               </div>
             </div>

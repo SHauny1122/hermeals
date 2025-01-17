@@ -200,7 +200,7 @@ export default function PlansAndPricing() {
                         <>
                           {/* New Year Special Badge - Adjusted for mobile */}
                           <div className="absolute -top-6 sm:-top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 sm:px-4 sm:py-1 rounded-full text-sm font-semibold shadow-lg animate-pulse whitespace-nowrap">
-                            New Year Special! 🎉
+                            New Year Special! 
                           </div>
                           
                           {/* Price Container - More spacing on mobile */}
@@ -225,14 +225,14 @@ export default function PlansAndPricing() {
                               
                               {/* Urgency Message - Adjusted spacing */}
                               <p className="text-base sm:text-sm font-medium text-indigo-600 mt-4 sm:mt-2 px-4">
-                                🔥 Limited Time New Year Offer!
+                                Limited Time New Year Offer!
                               </p>
                             </div>
                           </div>
-                        </>
+                        </> 
                       ) : (
                         <p className="text-3xl font-bold text-gray-900">
-                          $29.99 <span className="text-xl text-gray-500">USD</span>
+                          $19.99 <span className="text-xl text-gray-500">USD</span>
                         </p>
                       )}
                     </div>
@@ -247,7 +247,7 @@ export default function PlansAndPricing() {
                                 amount: {
                                   value: promotion && promotion.active 
                                     ? promotion.promoPrice.toString()
-                                    : "29.99",
+                                    : "19.99",
                                   currency_code: "USD"
                                 }
                               }]
@@ -351,7 +351,7 @@ export default function PlansAndPricing() {
                   </dt>
                   <dd className="mt-4 lg:col-span-7 lg:mt-0">
                     <p className="text-base leading-7 text-gray-600">
-                      Yes! The 7-day Mediterranean plan is included in your $29.99 purchase, along with the 12-week plan and 22-day plan.
+                      Yes! The 7-day Mediterranean plan is included in your $19.99 purchase, along with the 12-week plan and 22-day plan.
                     </p>
                   </dd>
                 </div>

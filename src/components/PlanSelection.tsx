@@ -101,7 +101,7 @@ export const PlanSelection: React.FC = () => {
         <PlanCard
           title="12-Week Regular Plan"
           description="A comprehensive 12-week program with balanced meals"
-          price="$29.99"
+          price="$19.99"
           features={[
             "84 days of planned meals",
             "Complete shopping lists",

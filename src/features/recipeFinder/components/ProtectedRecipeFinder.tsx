@@ -93,7 +93,7 @@ const ProtectedRecipeFinder = ({ children }: ProtectedRecipeFinderProps) => {
             <div className="inline-block bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
               Included in All Plans
             </div>
-            <h3 className="text-2xl font-bold mb-4">Get Complete Access for Just $29.99</h3>
+            <h3 className="text-2xl font-bold mb-4">Get Complete Access for Just $19.99</h3>
             <p className="text-gray-600 mb-6">
               The Recipe Finder is included in our complete package along with meal plans, smoothie recipes, and fitness guides!
             </p>
